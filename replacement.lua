@@ -1,0 +1,99 @@
+local normalRoomFilenames = {
+    --[[NULL]] [0] = { default = "rd_normaldoor" },
+    --[[Basement]] [1] = { default = "01_rd_basement_a", variants = {"01_rd_basement_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Cellar]] [2] = { default = "01a_rd_cellar_a", variants = {"01a_rd_cellar_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Burning Basement]] [3] = { default = "01b_rd_burning_a", variants = {"01b_rd_burning_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Caves]] [4] = { default = "02_rd_caves_a", variants = {"02_rd_caves_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Flooded Caves]] [6] = { default = "02b_rd_flooded_a", variants = {"02b_rd_flooded_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Depths]] [7] = { default = "03_rd_depths_a", variants = {"03_rd_depths_a"}, anm2 = "rd_default", allowFlip = true },
+}
+
+local roomFilenames = {
+    --[[Shop]] [2] = { default = "00_rd_shopdoor", anm2 = "rd_default" },
+    --[[Treasure]] [4] = { default = "00_rd_treasuredoor", anm2 = "rd_default" },
+}
+
+local function getDoorInfo(indexedDoor, currentRoom, settings)
+    local current = indexedDoor.CurrentRoomType
+    local target = indexedDoor.TargetRoomType
+
+    local doorTable = nil;
+
+    if (current == 1 and target == 1) or (current == 6 or target == 6) then                             --Normal
+        if settings.normalDoors == false then return nil end 
+
+        doorTable = normalRoomFilenames[currentRoom:GetBackdropType()]
+
+    elseif settings.specialDoors == false then return nil 
+    elseif settings.specialDoors == false == target == 7 or target == 8 or target == 29 then            --Secret
+        doorTable = roomFilenames[target]
+    elseif target == 10 then                                                                            --Curse
+        doorTable = roomFilenames[target]
+    elseif target == 4 then                                                                             --Treasure
+        doorTable = roomFilenames[target]
+    else                                                                                                --Special
+        if target ~= 1 then 
+            doorTable = roomFilenames[target]
+        else 
+            doorTable = roomFilenames[current] 
+        end
+    end
+
+    if doorTable == nil then return nil end
+
+    if doorTable.default == nil then doorTable.default = "rd_normaldoor" end
+    if doorTable.variants == nil then doorTable.variants = {doorTable.default} end
+    if doorTable.anm2 == nil then doorTable.anm2 = nil end
+    if doorTable.allowFlip == nil then doorTable.allowFlip = false end
+
+    local doorFile = doorTable.default
+    if settings.variants== true then                                                                    --Variants
+        math.randomseed(currentRoom:GetDecorationSeed() + indexedDoor.Slot)
+        doorFile = doorTable.variants[math.random(#doorTable.variants)]
+    end
+
+    if settings.variants == true  and settings.flipping == true and doorTable.allowFlip == true then    --Flipping
+        local willFlip = math.random(0, 1)
+        if ((indexedDoor:GetSprite().Rotation / 90) % 2) == 0 and willFlip == 1 then indexedDoor:GetSprite().FlipX = true end
+        if ((indexedDoor:GetSprite().Rotation / 90) % 2) == 1 and willFlip == 1 then indexedDoor:GetSprite().FlipY = true end
+    end
+
+    return {file = doorFile , anm2 = doorTable.anm2}
+end
+
+return function(settings)
+    local currentRoom = Game():GetRoom()
+
+    for x = 0, 7, 1 do
+        local indexedDoor = currentRoom:GetDoor(x)
+        if indexedDoor == nil then goto loopSkip end
+
+        local doorInfo = getDoorInfo(indexedDoor, currentRoom, settings)
+        if doorInfo == nil then goto loopSkip end
+
+        local doorSprite = indexedDoor:GetSprite()
+
+        if doorInfo.anm2 ~= nil then doorSprite:Load("gfx/grid/" .. doorInfo.anm2 .. ".anm2", false) end
+
+        for y = 0, doorSprite:GetLayerCount()-1, 1 do
+            doorSprite:ReplaceSpritesheet(y, "gfx/grid/" .. doorInfo.file .. ".png")
+        end
+
+        if not indexedDoor:IsOpen() then
+            doorSprite:Play("Close")
+            if indexedDoor:IsLocked() then --Dont know why I gotta do this but it works
+            doorSprite:Play("KeyClosed")
+
+            for i = 0, Game():GetNumPlayers()-1, 1 do
+                if Game():GetPlayer(i):HasCollectible(CollectibleType.COLLECTIBLE_PAY_TO_PLAY) then
+                    doorSprite:Play("CoinClosed")
+                    break
+                end
+            end
+            end
+        end
+
+        doorSprite:LoadGraphics()
+        ::loopSkip::
+    end
+end
