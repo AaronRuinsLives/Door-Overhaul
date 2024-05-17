@@ -4,6 +4,7 @@ local normalRoomFilenames = {
     --[[Cellar]] [2] = { default = "01a_rd_cellar_a", variants = {"01a_rd_cellar_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Burning Basement]] [3] = { default = "01b_rd_burning_a", variants = {"01b_rd_burning_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Caves]] [4] = { default = "02_rd_caves_a", variants = {"02_rd_caves_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Catacombs]] [5] = { default = "02a_rd_catacombs_a", variants = {"02a_rd_catacombs_a"}, anm2 = "rd_default", allowFlip = true }, --Change destroyed frame
     --[[Flooded Caves]] [6] = { default = "02b_rd_flooded_a", variants = {"02b_rd_flooded_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Depths]] [7] = { default = "03_rd_depths_a", variants = {"03_rd_depths_a"}, anm2 = "rd_default", allowFlip = true },
 }
@@ -11,6 +12,7 @@ local normalRoomFilenames = {
 local roomFilenames = {
     --[[Shop]] [2] = { default = "00_rd_shopdoor", anm2 = "rd_default" },
     --[[Treasure]] [4] = { default = "00_rd_treasuredoor", anm2 = "rd_default" },
+    --[[Curse]] [10] = { default = "00_rd_curse", anm2 = "rd_default" },
 }
 
 local function getDoorInfo(indexedDoor, currentRoom, settings)
@@ -19,13 +21,13 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
 
     local doorTable = nil;
 
-    if (current == 1 and target == 1) or (current == 6 or target == 6) then                             --Normal
+    if (current == 1 and target == 1) or (current == 6 or target == 6) and settings.normalTable[currentRoom:getBackdropType()] ~= 0 then                             --Normal
         if settings.normalDoors == false then return nil end 
 
         doorTable = normalRoomFilenames[currentRoom:GetBackdropType()]
 
-    elseif settings.specialDoors == false then return nil 
-    elseif settings.specialDoors == false == target == 7 or target == 8 or target == 29 then            --Secret
+    elseif settings.specialDoors == false or settings.specialTable[target] == false then return nil 
+    elseif settings.specialDoors == false or target == 7 or target == 8 or target == 29 then            --Secret
         doorTable = roomFilenames[target]
     elseif target == 10 then                                                                            --Curse
         doorTable = roomFilenames[target]
