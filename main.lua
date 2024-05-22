@@ -7,6 +7,23 @@ local settings = {
     flipping = true,
     normalDoors = true,
     specialDoors = true,
+
+    normalTable = {
+        ["0"] = "On",
+        ["1"] = "On",
+        ["2"] = "On",
+        ["3"] = "On",
+        ["4"] = "On",
+        ["5"] = "On",
+        ["6"] = "On",
+        ["7"] = "On",
+    },
+
+   specialTable = {
+        ["2"] = true,
+        ["4"] = true,
+        ["10"] = true,
+    },
 }
 
 local function save()
@@ -27,6 +44,8 @@ local function setupConfig()
         Name = "Redone Doors",
         Info = "Settings for your new doors"
     })
+
+    ------------------------------General------------------------------
 
     ModConfigMenu.AddSetting("Redone Doors", "General", { --Variants
 
@@ -105,7 +124,153 @@ local function setupConfig()
     ModConfigMenu.AddSpace("Redone Doors", "General")
     ModConfigMenu.AddSpace("Redone Doors", "General")
     ModConfigMenu.AddText("Redone Doors", "General", "By: AaronRuinsLives")
+
+
+    ------------------------------Normal Doors------------------------------
+
+    local choices = {
+        [1] = "On",
+        [2] = "No Variants",
+        [3] = "Off",
+    }
+
+    local function getIndex(setting)
+        for i, v in ipairs(choices) do
+            if v == setting then return i end
+        end
+        return 1
+    end
+    
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Default
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["0"]) end,
+        
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Default: " .. settings.normalTable["0"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["0"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Basement
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["1"]) end,
+    
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Basement: " .. settings.normalTable["1"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["1"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Cellar
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["2"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Cellar: " .. settings.normalTable["2"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["2"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ------------------------------Special Doors------------------------------
+
+    ModConfigMenu.AddSetting("Redone Doors", "Special", { --Shop
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["2"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Shop: " .. (settings.specialTable["2"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["2"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Special", { --Treasure
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["4"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Treasure: " .. (settings.specialTable["4"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["4"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Special", { --Curse
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["10"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Curse: " .. (settings.specialTable["10"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["10"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
 end
+
+
 
 local replaceDoors = require("replacement")
 RedoneDoors:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function() replaceDoors(settings) end)

@@ -7,6 +7,7 @@ local normalRoomFilenames = {
     --[[Catacombs]] [5] = { default = "02a_rd_catacombs_a", variants = {"02a_rd_catacombs_a"}, anm2 = "rd_default", allowFlip = true }, --Change destroyed frame
     --[[Flooded Caves]] [6] = { default = "02b_rd_flooded_a", variants = {"02b_rd_flooded_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Depths]] [7] = { default = "03_rd_depths_a", variants = {"03_rd_depths_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Cathedral]] [15] = { default = "05_rd_cathedral_a", variants = {"05_rd_cathedral_a"}, anm2 = "rd_default", allowFlip = true },
 }
 
 local roomFilenames = {
@@ -19,25 +20,26 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
     local current = indexedDoor.CurrentRoomType
     local target = indexedDoor.TargetRoomType
 
-    local doorTable = nil;
+    local doorTable = nil
 
-    if (current == 1 and target == 1) or (current == 6 or target == 6) and settings.normalTable[currentRoom:getBackdropType()] ~= 0 then                             --Normal
-        if settings.normalDoors == false then return nil end 
+    if ((current == 1 and target == 1) or (current == 6 or target == 6)) then                                               --Normal
+        if settings.normalDoors == false or settings.normalTable[tostring(currentRoom:GetBackdropType())] == "Off"then return nil end 
 
         doorTable = normalRoomFilenames[currentRoom:GetBackdropType()]
 
-    elseif settings.specialDoors == false or settings.specialTable[target] == false then return nil 
-    elseif settings.specialDoors == false or target == 7 or target == 8 or target == 29 then            --Secret
+    elseif settings.specialDoors == false then return nil 
+    elseif settings.specialTable[tostring(target)] == true and (target == 7 or target == 8 or target == 29) then            --Secret
+
         doorTable = roomFilenames[target]
-    elseif target == 10 then                                                                            --Curse
+    elseif settings.specialTable[tostring(target)] == true and target == 10 then                                            --Curse
         doorTable = roomFilenames[target]
-    elseif target == 4 then                                                                             --Treasure
+    elseif settings.specialTable[tostring(target)] == true and target == 4 then                                             --Treasure
         doorTable = roomFilenames[target]
-    else                                                                                                --Special
+    else                                                                                                                    --Special
         if target ~= 1 then 
-            doorTable = roomFilenames[target]
+            if settings.specialTable[tostring(target)] == true then doorTable = roomFilenames[target] end
         else 
-            doorTable = roomFilenames[current] 
+            if settings.specialTable[tostring(current)] == true then doorTable = roomFilenames[current] end
         end
     end
 
@@ -49,12 +51,12 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
     if doorTable.allowFlip == nil then doorTable.allowFlip = false end
 
     local doorFile = doorTable.default
-    if settings.variants== true then                                                                    --Variants
+    if settings.variants == true and settings.normalTable[tostring(currentRoom:GetBackdropType())] == "On" then                                                                    --Variants
         math.randomseed(currentRoom:GetDecorationSeed() + indexedDoor.Slot)
         doorFile = doorTable.variants[math.random(#doorTable.variants)]
     end
 
-    if settings.variants == true  and settings.flipping == true and doorTable.allowFlip == true then    --Flipping
+    if settings.variants == true  and settings.flipping == true and doorTable.allowFlip == true then                        --Flipping
         local willFlip = math.random(0, 1)
         if ((indexedDoor:GetSprite().Rotation / 90) % 2) == 0 and willFlip == 1 then indexedDoor:GetSprite().FlipX = true end
         if ((indexedDoor:GetSprite().Rotation / 90) % 2) == 1 and willFlip == 1 then indexedDoor:GetSprite().FlipY = true end
