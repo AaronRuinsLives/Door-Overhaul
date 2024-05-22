@@ -17,12 +17,14 @@ local settings = {
         ["5"] = "On",
         ["6"] = "On",
         ["7"] = "On",
+        ["15"] = "On",
     },
 
    specialTable = {
         ["2"] = true,
         ["4"] = true,
         ["10"] = true,
+        ["Greed"] = true,
     },
 }
 
@@ -207,6 +209,138 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Burning
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["3"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Burning Basement: " .. settings.normalTable["3"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["3"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Caves
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["4"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Caves: " .. settings.normalTable["4"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["4"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Catacombs
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["5"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Catacombs: " .. settings.normalTable["5"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["5"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Flooded
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["6"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Flooded Caves: " .. settings.normalTable["6"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["6"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Depths
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["7"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Depths: " .. settings.normalTable["7"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["7"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Cathedral
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["15"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Cathedral: " .. settings.normalTable["15"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["15"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
     ------------------------------Special Doors------------------------------
 
     ModConfigMenu.AddSetting("Redone Doors", "Special", { --Shop
@@ -243,6 +377,26 @@ local function setupConfig()
             if settings.specialDoors == false then return end
 
             settings.specialTable["4"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Redone Doors", "Special", { --Greed Treasure
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["Greed"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Greed Treasure: " .. (settings.specialTable["Greed"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["Greed"] = new
             save()
         end,
 
