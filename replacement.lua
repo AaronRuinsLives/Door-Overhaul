@@ -13,7 +13,7 @@ local normalRoomFilenames = {
 local roomFilenames = {
     --[[Shop]] [2] = { default = "00_rd_shopdoor", anm2 = "rd_default" },
     --[[Treasure]] [4] = { default = "00_rd_treasuredoor", anm2 = "rd_default" },
-    --[[Curse]] [10] = { default = "00_rd_curse", anm2 = "rd_default" },
+    --[[Curse]] [10] = { default = "00_rd_cursedoor", anm2 = "rd_default" },
 }
 
 local function getDoorInfo(indexedDoor, currentRoom, settings)
