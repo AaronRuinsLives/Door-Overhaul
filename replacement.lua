@@ -7,12 +7,14 @@ local normalRoomFilenames = {
     --[[Catacombs]] [5] = { default = "02a_rd_catacombs_a", variants = {"02a_rd_catacombs_a"}, anm2 = "rd_default", allowFlip = true }, --Change destroyed frame
     --[[Flooded Caves]] [6] = { default = "02b_rd_flooded_a", variants = {"02b_rd_flooded_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Depths]] [7] = { default = "03_rd_depths_a", variants = {"03_rd_depths_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Dank Depths]] [9] = { default = "03b_rd_dank_a", variants = {"03b_rd_dank_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Cathedral]] [15] = { default = "05_rd_cathedral_a", variants = {"05_rd_cathedral_a"}, anm2 = "rd_default", allowFlip = true },
 }
 
 local roomFilenames = {
     --[[Shop]] [2] = { default = "00_rd_shopdoor", anm2 = "rd_default" },
     --[[Treasure]] [4] = { default = "00_rd_treasuredoor", anm2 = "rd_default" },
+    --[[Treasure]] [-4] = { default = "00_rd_treasuredoor_greed", anm2 = "rd_default" },
     --[[Curse]] [10] = { default = "00_rd_cursedoor", anm2 = "rd_default" },
 }
 
@@ -21,21 +23,28 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
     local target = indexedDoor.TargetRoomType
 
     local doorTable = nil
-
-    if ((current == 1 and target == 1) or (current == 6 or target == 6)) then                                               --Normal
-        if settings.normalDoors == false or settings.normalTable[tostring(currentRoom:GetBackdropType())] == "Off"then return nil end 
+            
+    if ((current == 1 or current == 6) and (target == 1 or target == 6)) then                                                                         --Normal
+        if settings.normalDoors == false or settings.normalTable[tostring(currentRoom:GetBackdropType())] == "Off" then return nil end 
 
         doorTable = normalRoomFilenames[currentRoom:GetBackdropType()]
 
-    elseif settings.specialDoors == false then return nil 
-    elseif settings.specialTable[tostring(target)] == true and (target == 7 or target == 8 or target == 29) then            --Secret
+    elseif settings.specialDoors == false then return nil  
+    elseif (target == 7 or target == 8 or target == 29) then return nil                                                                               --Secret
+
+    elseif settings.specialTable[tostring(target)] == true and target == 10 then                                                                      --Curse
+        doorTable = roomFilenames[target]
+        
+    elseif settings.specialTable[tostring(target)] == true and target == 4 then                                                                       --Treasure
+
+        if Game():IsGreedMode() and (indexedDoor.Slot == 6 or (Game():GetLevel():GetCurrentRoomIndex() == 98 and indexedDoor.Slot == 0)) then         --Greed
+            if settings.specialTable["-4"] == false then return nil end
+            target = -4
+        end
 
         doorTable = roomFilenames[target]
-    elseif settings.specialTable[tostring(target)] == true and target == 10 then                                            --Curse
-        doorTable = roomFilenames[target]
-    elseif settings.specialTable[tostring(target)] == true and target == 4 then                                             --Treasure
-        doorTable = roomFilenames[target]
-    else                                                                                                                    --Special
+
+    else                                                                                                                                              --Special
         if target ~= 1 then 
             if settings.specialTable[tostring(target)] == true then doorTable = roomFilenames[target] end
         else 

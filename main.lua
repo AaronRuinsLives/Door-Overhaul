@@ -23,8 +23,8 @@ local settings = {
    specialTable = {
         ["2"] = true,
         ["4"] = true,
+        ["-4"] = true,
         ["10"] = true,
-        ["Greed"] = true,
     },
 }
 
@@ -389,14 +389,14 @@ local function setupConfig()
 
         Default = true,
 
-        CurrentSetting = function() return settings.specialTable["Greed"] end,
+        CurrentSetting = function() return settings.specialTable["-4"] end,
         
-        Display = function() return (settings.specialDoors and "" or "X  ") .. "Greed Treasure: " .. (settings.specialTable["Greed"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Greed Treasure: " .. (settings.specialTable["-4"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
 
         OnChange = function(new)
             if settings.specialDoors == false then return end
 
-            settings.specialTable["Greed"] = new
+            settings.specialTable["-4"] = new
             save()
         end,
 
