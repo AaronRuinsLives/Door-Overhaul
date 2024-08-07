@@ -1,4 +1,4 @@
-RedoneDoors = RegisterMod("Redone Doors", 1)
+DoorOverhaul = RegisterMod("Door Overhaul", 1)
 
 local json = require("json")
 
@@ -24,32 +24,33 @@ local settings = {
         ["2"] = true,
         ["4"] = true,
         ["-4"] = true,
+        ["5"] = true,
         ["10"] = true,
     },
 }
 
 local function save()
     local data = json.encode(settings)
-    RedoneDoors:SaveData(data)
+    DoorOverhaul:SaveData(data)
 end
 
 local function load()
-    if not RedoneDoors:HasData() then return end
+    if not DoorOverhaul:HasData() then return end
 
-    local data = RedoneDoors:LoadData()
+    local data = DoorOverhaul:LoadData()
     settings = json.decode(data)
 end
 
 local function setupConfig()
-    ModConfigMenu.RemoveCategory("Redone Doors")
-    ModConfigMenu.UpdateCategory("Redone Doors", {
-        Name = "Redone Doors",
+    ModConfigMenu.RemoveCategory("Door Overhaul")
+    ModConfigMenu.UpdateCategory("Door Overhaul", {
+        Name = "Door Overhaul",
         Info = "Settings for your new doors"
     })
 
     ------------------------------General------------------------------
 
-    ModConfigMenu.AddSetting("Redone Doors", "General", { --Variants
+    ModConfigMenu.AddSetting("Door Overhaul", "General", { --Variants
 
         Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -67,7 +68,7 @@ local function setupConfig()
         Info = { "Choose between multiple variations for some doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "General", { --Flipping
+    ModConfigMenu.AddSetting("Door Overhaul", "General", { --Flipping
 
         Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -87,7 +88,7 @@ local function setupConfig()
         Info = { "Toggles if doors are randomly flipped for more variety" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "General", { --Normal Doors
+    ModConfigMenu.AddSetting("Door Overhaul", "General", { --Normal Doors
 
         Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -105,7 +106,7 @@ local function setupConfig()
         Info = { "Toggles the new normal doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "General", { --Special Doors
+    ModConfigMenu.AddSetting("Door Overhaul", "General", { --Special Doors
         
         Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -123,9 +124,9 @@ local function setupConfig()
         Info = { "Toggles custom doors for special rooms" }
     })
 
-    ModConfigMenu.AddSpace("Redone Doors", "General")
-    ModConfigMenu.AddSpace("Redone Doors", "General")
-    ModConfigMenu.AddText("Redone Doors", "General", "By: AaronRuinsLives")
+    ModConfigMenu.AddSpace("Door Overhaul", "General")
+    ModConfigMenu.AddSpace("Door Overhaul", "General")
+    ModConfigMenu.AddText("Door Overhaul", "General", "By: AaronRuinsLives")
 
 
     ------------------------------Normal Doors------------------------------
@@ -143,7 +144,7 @@ local function setupConfig()
         return 1
     end
     
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Default
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Default
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -165,7 +166,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Basement
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Basement
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -187,7 +188,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Cellar
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Cellar
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -209,7 +210,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Burning
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Burning
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -231,7 +232,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Caves
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Caves
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -253,7 +254,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Catacombs
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Catacombs
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -275,7 +276,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Flooded
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Flooded
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -297,7 +298,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Depths
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Depths
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -319,7 +320,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Normal", { --Cathedral
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Cathedral
 
         Type = ModConfigMenu.OptionType.NUMBER,
 
@@ -343,7 +344,7 @@ local function setupConfig()
 
     ------------------------------Special Doors------------------------------
 
-    ModConfigMenu.AddSetting("Redone Doors", "Special", { --Shop
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Shop
 
         Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -363,7 +364,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Special", { --Treasure
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Treasure
 
         Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -383,7 +384,7 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Special", { --Greed Treasure
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Greed Treasure
 
         Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -403,7 +404,27 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
-    ModConfigMenu.AddSetting("Redone Doors", "Special", { --Curse
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Boss
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["5"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Boss: " .. (settings.specialTable["5"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["5"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+    
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Curse
 
         Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -427,12 +448,12 @@ end
 
 
 local replaceDoors = require("replacement")
-RedoneDoors:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function() replaceDoors(settings) end)
+DoorOverhaul:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function() replaceDoors(settings) end)
 
 --ModConfigMenu
 if ModConfigMenu == nil then return end
 
-RedoneDoors:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function() 
+DoorOverhaul:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function() 
     load()
     setupConfig()
 end)
