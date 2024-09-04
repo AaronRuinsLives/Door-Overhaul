@@ -9,7 +9,14 @@ local normalRoomFilenames = {
     --[[Depths]] [7] = { default = "03_rd_depths_a", variants = {"03_rd_depths_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Necropolis]] [8] = { default = "03a_rd_necropolis_a", variants = {"03a_rd_necropolis_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Dank Depths]] [9] = { default = "03b_rd_dank_a", variants = {"03b_rd_dank_a"}, anm2 = "rd_default", allowFlip = true },
-    --[[Cathedral]] [15] = { default = "05_rd_cathedral_a", variants = {"05_rd_cathedral_a"}, anm2 = "rd_cathedral", allowFlip = true },
+    --[[Womb]] [10] = { default = "04_rd_womb_a", variants = {"04_rd_womb_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Utero]] [11] = { default = "04a_rd_utero_a", variants = {"04a_rd_utero_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Scarred]] [12] = { default = "04b_rd_scarred_a", variants = {"04b_rd_scarred_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Corpse 1]] [34] = { default = "04c_rd_corpseA_a", variants = {"04c_rd_corpseA_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Corpse 2]] [43] = { default = "04c_rd_corpseB_a", variants = {"04c_rd_corpseB_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Corpse 3]] [44] = { default = "04c_rd_corpseC_a", variants = {"04c_rd_corpseC_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Cathedral]] [15] = { default = "05_rd_cathedral_a", variants = {"05_rd_cathedral_a"}, anm2 = "rd_cathedral", allowFlip = true }, --Change destroyed frame
+
 }
 
 local roomFilenames = {

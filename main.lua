@@ -17,7 +17,15 @@ local settings = {
         ["5"] = "On",
         ["6"] = "On",
         ["7"] = "On",
+        ["8"] = "On",
+        ["9"] = "On",
+        ["10"] = "On",
+        ["11"] = "On",
+        ["12"] = "On",
         ["15"] = "On",
+        ["34"] = "On",
+        ["43"] = "On",
+        ["44"] = "On",
     },
 
    specialTable = {
@@ -310,6 +318,140 @@ local function setupConfig()
             if settings.normalDoors == false then return end
 
             settings.normalTable["7"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Necropolis
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["8"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Necropolis: " .. settings.normalTable["8"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["8"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Dank Depths
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["9"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Dank Depths: " .. settings.normalTable["9"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["9"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Womb
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["10"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Womb: " .. settings.normalTable["10"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["10"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Utero
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["11"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Utero: " .. settings.normalTable["11"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["11"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Scarred Womb
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["12"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Scarred Womb: " .. settings.normalTable["12"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["12"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Corpse
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["34"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Corpse: " .. settings.normalTable["34"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["34"] = choices[new]
+            settings.normalTable["43"] = choices[new]
+            settings.normalTable["44"] = choices[new]
             save()
         end,
 
