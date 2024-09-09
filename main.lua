@@ -8,7 +8,7 @@ local settings = {
     normalDoors = true,
     specialDoors = true,
 
-    normalTable = {
+    normalTable = { --Set defaults idiot style
         ["0"] = "On",
         ["1"] = "On",
         ["2"] = "On",
@@ -23,7 +23,13 @@ local settings = {
         ["11"] = "On",
         ["12"] = "On",
         ["15"] = "On",
+        ["31"] = "On",
+        ["32"] = "On",
+        ["33"] = "On",
         ["34"] = "On",
+        ["40"] = "On",
+        ["41"] = "On",
+        ["42"] = "On",
         ["43"] = "On",
         ["44"] = "On",
     },
@@ -34,6 +40,7 @@ local settings = {
         ["-4"] = true,
         ["5"] = true,
         ["10"] = true,
+        ["28"] = true,
     },
 }
 

@@ -1,17 +1,31 @@
+
+--A list of all backdrop ID's with their corosponding normal doors
 local normalRoomFilenames = {
     --[[NULL]] [0] = { default = "rd_normaldoor" },
     --[[Basement]] [1] = { default = "01_rd_basement_a", variants = {"01_rd_basement_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Cellar]] [2] = { default = "01a_rd_cellar_a", variants = {"01a_rd_cellar_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Burning Basement]] [3] = { default = "01b_rd_burning_a", variants = {"01b_rd_burning_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Downpour]] [31] = { default = "01c_rd_downpour_a", variants = {"01c_rd_downpour_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Dross]] [45] = { default = "01d_rd_dross_a", variants = {"01d_rd_dross_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Caves]] [4] = { default = "02_rd_caves_a", variants = {"02_rd_caves_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Catacombs]] [5] = { default = "02a_rd_catacombs_a", variants = {"02a_rd_catacombs_a"}, anm2 = "rd_default", allowFlip = true }, --Change destroyed frame
     --[[Flooded Caves]] [6] = { default = "02b_rd_flooded_a", variants = {"02b_rd_flooded_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Mines]] [32] = { default = "02c_rd_mines_a", variants = {"02c_rd_mines_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Mines Shaft]] [58] = { default = "02c_rd_mines_a", variants = {"02c_rd_mines_a"}, anm2 = "rd_default", allowFlip = true }, --No idea where this would be used but just in case
+    --[[Ashpit]] [46] = { default = "02d_rd_ashpit_a", variants = {"02d_rd_ashpit_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Ashpit Shaft]] [59] = { default = "02d_rd_ashpit_a", variants = {"02d_rd_ashpit_a"}, anm2 = "rd_default", allowFlip = true }, 
     --[[Depths]] [7] = { default = "03_rd_depths_a", variants = {"03_rd_depths_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Necropolis]] [8] = { default = "03a_rd_necropolis_a", variants = {"03a_rd_necropolis_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Dank Depths]] [9] = { default = "03b_rd_dank_a", variants = {"03b_rd_dank_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Mausoleum 1]] [33] = { default = "03c_rd_mausoleum_a", variants = {"03c_rd_mausoleum_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Mausoleum 2]] [40] = { default = "03c_rd_mausoleum_a", variants = {"03c_rd_mausoleum_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Mausoleum 3]] [41] = { default = "03c_rd_mausoleum_a", variants = {"03c_rd_mausoleum_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Mausoleum 4]] [42] = { default = "03c_rd_mausoleum_a", variants = {"03c_rd_mausoleum_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Gehenna]] [47] = { default = "03d_rd_gehenna_a", variants = {"03d_rd_gehenna_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Womb]] [10] = { default = "04_rd_womb_a", variants = {"04_rd_womb_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Utero]] [11] = { default = "04a_rd_utero_a", variants = {"04a_rd_utero_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Scarred]] [12] = { default = "04b_rd_scarred_a", variants = {"04b_rd_scarred_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Blue Womb]] [13] = { default = "04x_rd_blue_a", variants = {"04x_rd_blue_a"}, anm2 = "rd_default", allowFlip = true }, --No idea where this would be used but just in case
     --[[Corpse 1]] [34] = { default = "04c_rd_corpseA_a", variants = {"04c_rd_corpseA_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Corpse 2]] [43] = { default = "04c_rd_corpseB_a", variants = {"04c_rd_corpseB_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Corpse 3]] [44] = { default = "04c_rd_corpseC_a", variants = {"04c_rd_corpseC_a"}, anm2 = "rd_default", allowFlip = true },
@@ -19,12 +33,14 @@ local normalRoomFilenames = {
 
 }
 
+--Same as normalRoomFilenames but for special rooms and indexed by roomType instead
 local roomFilenames = {
     --[[Shop]] [2] = { default = "00_rd_shopdoor", anm2 = "rd_default" },
     --[[Treasure]] [4] = { default = "00_rd_treasuredoor", anm2 = "rd_default" },
     --[[Treasure]] [-4] = { default = "00_rd_treasuredoor_greed", anm2 = "rd_default" },
     --[[Boss]] [5] = { default = "00_rd_bossdoor", anm2 = "rd_boss" },
     --[[Curse]] [10] = { default = "00_rd_cursedoor", anm2 = "rd_default" },
+    --[[Blue Womb]] [28] = { default = "04x_rd_blue_a", variants = {"04x_rd_blue_a"}, anm2 = "rd_default", allowFlip = true }, --Blue Key 
 }
 
 local function getDoorInfo(indexedDoor, currentRoom, settings)
@@ -32,8 +48,11 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
     local target = indexedDoor.TargetRoomType
 
     local doorTable = nil
+
+    --Manually prioritize some special rooms over others
             
-    if ((current == 1 or current == 6) and (target == 1 or target == 6)) then                                                                         --Normal
+    --Normal Rooms
+    if ((current == 1 or current == 6) and (target == 1 or target == 6)) then                                                                         
         if settings.normalDoors == false or settings.normalTable[tostring(currentRoom:GetBackdropType())] == "Off" then return nil end 
 
         doorTable = normalRoomFilenames[currentRoom:GetBackdropType()]
@@ -41,19 +60,22 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
     elseif settings.specialDoors == false then return nil  
     elseif (current == 7 or current == 8 or current == 29 or target == 7 or target == 8 or target == 29) then return nil                                                                               --Secret
 
-    elseif settings.specialTable[tostring(target)] == true and target == 10 then                                                                      --Curse
+    --Curse Rooms
+    elseif settings.specialTable[tostring(target)] == true and target == 10 then                                                                      
         doorTable = roomFilenames[target]
         
-    elseif settings.specialTable[tostring(target)] == true and target == 4 then                                                                       --Treasure
+    --Treasure Rooms
+    elseif settings.specialTable[tostring(target)] == true and target == 4 then                                                                       
 
-        if Game():IsGreedMode() and (indexedDoor.Slot == 6 or (Game():GetLevel():GetCurrentRoomIndex() == 98 and indexedDoor.Slot == 0)) then         --Greed
-            if settings.specialTable["-4"] == false then return nil end
+        --Greed Boss Treasure Rooms
+        if Game():IsGreedMode() and (indexedDoor.Slot == 6 or (Game():GetLevel():GetCurrentRoomIndex() == 98 and indexedDoor.Slot == 0)) then
             target = -4
         end
 
         doorTable = roomFilenames[target]
 
-    else                                                                                                                                              --Special
+    --All Other Special Rooms
+    else                                                                                                                                           
         if target ~= 1 then 
             if settings.specialTable[tostring(target)] == true then doorTable = roomFilenames[target] end
         else 
@@ -61,6 +83,7 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
         end
     end
 
+    --Set defaults for missing parts of the table
     if doorTable == nil then return nil end
 
     if doorTable.default == nil then doorTable.default = "rd_normaldoor" end
@@ -74,7 +97,8 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
         doorFile = doorTable.variants[math.random(#doorTable.variants)]
     end
 
-    if settings.variants == true  and settings.flipping == true and doorTable.allowFlip == true then                        --Flipping
+    --Randomly Flip Doors
+    if settings.variants == true  and settings.flipping == true and doorTable.allowFlip == true then                                                  
         local willFlip = math.random(0, 1)
         if ((indexedDoor:GetSprite().Rotation / 90) % 2) == 0 and willFlip == 1 then indexedDoor:GetSprite().FlipX = true end
         if ((indexedDoor:GetSprite().Rotation / 90) % 2) == 1 and willFlip == 1 then indexedDoor:GetSprite().FlipY = true end
