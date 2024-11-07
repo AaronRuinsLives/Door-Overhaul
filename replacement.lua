@@ -29,7 +29,10 @@ local normalRoomFilenames = {
     --[[Corpse 1]] [34] = { default = "04c_rd_corpseA_a", variants = {"04c_rd_corpseA_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Corpse 2]] [43] = { default = "04c_rd_corpseB_a", variants = {"04c_rd_corpseB_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Corpse 3]] [44] = { default = "04c_rd_corpseC_a", variants = {"04c_rd_corpseC_a"}, anm2 = "rd_default", allowFlip = true },
-    --[[Cathedral]] [15] = { default = "05_rd_cathedral_a", variants = {"05_rd_cathedral_a"}, anm2 = "rd_cathedral", allowFlip = true }, --Change destroyed frame
+    --[[Sheol]] [14] = { default = "05_rd_sheol_a", variants = {"05_rd_sheol_a"}, anm2 = "rd_default", allowFlip = true }, --Change destroyed frame
+    --[[Cathedral]] [15] = { default = "05a_rd_cathedral_a", variants = {"05a_rd_cathedral_a"}, anm2 = "rd_cathedral", allowFlip = true },
+    --[[Darkroom]] [16] = { default = "06_rd_darkroom_a", variants = {"06_rd_darkroom_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Chest]] [17] = { default = "06a_rd_chest_a", variants = {"06a_rd_chest_a"}, anm2 = "rd_default", allowFlip = true },
 
 }
 
@@ -37,9 +40,12 @@ local normalRoomFilenames = {
 local roomFilenames = {
     --[[Shop]] [2] = { default = "00_rd_shopdoor", anm2 = "rd_default" },
     --[[Treasure]] [4] = { default = "00_rd_treasuredoor", anm2 = "rd_default" },
-    --[[Treasure]] [-4] = { default = "00_rd_treasuredoor_greed", anm2 = "rd_default" },
+    --[[Greed Treasure]] [-4] = { default = "00_rd_treasuredoor_greed", anm2 = "rd_default" },
     --[[Boss]] [5] = { default = "00_rd_bossdoor", anm2 = "rd_boss" },
     --[[Curse]] [10] = { default = "00_rd_cursedoor", anm2 = "rd_default" },
+    --[[Chest]] [20] = { default = "00_rd_chest", anm2 = "rd_default" },
+    --[[Dice]] [21] = { default = "00_rd_diceroom", anm2 = "rd_default" },
+    --[[Planetarium]] [24] = { default = "00_rd_planet", anm2 = "rd_default" },
     --[[Blue Womb]] [28] = { default = "04x_rd_blue_a", variants = {"04x_rd_blue_a"}, anm2 = "rd_default", allowFlip = true }, --Blue Key 
 }
 
@@ -49,7 +55,7 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
 
     local doorTable = nil
 
-    --Manually prioritize some special rooms over others
+    --This next section prioritizes showing some rooms over others, such as special rooms or curse doors
             
     --Normal Rooms
     if ((current == 1 or current == 6) and (target == 1 or target == 6)) then                                                                         
@@ -125,9 +131,10 @@ return function(settings)
             doorSprite:ReplaceSpritesheet(y, "gfx/grid/" .. doorInfo.file .. ".png")
         end
 
+        --Dont know why I gotta do this but it works
         if not indexedDoor:IsOpen() then
             doorSprite:Play("Close")
-            if indexedDoor:IsLocked() then --Dont know why I gotta do this but it works
+            if indexedDoor:IsLocked() then 
             doorSprite:Play("KeyClosed")
 
             for i = 0, Game():GetNumPlayers()-1, 1 do

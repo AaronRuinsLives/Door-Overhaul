@@ -40,6 +40,9 @@ local settings = {
         ["-4"] = true,
         ["5"] = true,
         ["10"] = true,
+        ["20"] = true,
+        ["21"] = true,
+        ["24"] =true,
         ["28"] = true,
     },
 }
@@ -592,6 +595,67 @@ local function setupConfig()
 
         Info = { "Toggle visibility for individual doors" }
     })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Dice
+
+    Type = ModConfigMenu.OptionType.BOOLEAN,
+
+    Default = true,
+
+    CurrentSetting = function() return settings.specialTable["21"] end,
+    
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Dice: " .. (settings.specialTable["21"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+    OnChange = function(new)
+        if settings.specialDoors == false then return end
+
+        settings.specialTable["21"] = new
+        save()
+    end,
+
+    Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Chest
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["20"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Chest: " .. (settings.specialTable["20"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["20"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Planetarium
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["24"] end,
+
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Planetarium: " .. (settings.specialTable["24"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["24"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
 end
 
 
