@@ -40,6 +40,9 @@ local settings = {
         ["-4"] = true,
         ["5"] = true,
         ["10"] = true,
+        ["13"] = true,
+        ["14"] = true,
+        ["15"] = true,
         ["20"] = true,
         ["21"] = true,
         ["24"] =true,
@@ -595,6 +598,86 @@ local function setupConfig()
 
         Info = { "Toggle visibility for individual doors" }
     })
+    
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Sacrafice
+
+    Type = ModConfigMenu.OptionType.BOOLEAN,
+
+    Default = true,
+
+    CurrentSetting = function() return settings.specialTable["13"] end,
+    
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Sacrafice: " .. (settings.specialTable["13"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+    OnChange = function(new)
+        if settings.specialDoors == false then return end
+
+        settings.specialTable["13"] = new
+        save()
+    end,
+
+    Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Devil
+
+    Type = ModConfigMenu.OptionType.BOOLEAN,
+
+    Default = true,
+
+    CurrentSetting = function() return settings.specialTable["14"] end,
+    
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Curse: " .. (settings.specialTable["14"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+    OnChange = function(new)
+        if settings.specialDoors == false then return end
+
+        settings.specialTable["14"] = new
+        save()
+    end,
+
+    Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Angel
+
+    Type = ModConfigMenu.OptionType.BOOLEAN,
+
+    Default = true,
+
+    CurrentSetting = function() return settings.specialTable["15"] end,
+
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Angel: " .. (settings.specialTable["15"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+    OnChange = function(new)
+        if settings.specialDoors == false then return end
+
+        settings.specialTable["15"] = new
+        save()
+    end,
+
+    Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Chest
+
+    Type = ModConfigMenu.OptionType.BOOLEAN,
+
+    Default = true,
+
+    CurrentSetting = function() return settings.specialTable["20"] end,
+    
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Chest: " .. (settings.specialTable["20"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+    OnChange = function(new)
+        if settings.specialDoors == false then return end
+
+        settings.specialTable["20"] = new
+        save()
+    end,
+
+    Info = { "Toggle visibility for individual doors" }
+    })
 
     ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Dice
 
@@ -614,26 +697,6 @@ local function setupConfig()
     end,
 
     Info = { "Toggle visibility for individual doors" }
-    })
-
-    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Chest
-
-        Type = ModConfigMenu.OptionType.BOOLEAN,
-
-        Default = true,
-
-        CurrentSetting = function() return settings.specialTable["20"] end,
-        
-        Display = function() return (settings.specialDoors and "" or "X  ") .. "Chest: " .. (settings.specialTable["20"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
-
-        OnChange = function(new)
-            if settings.specialDoors == false then return end
-
-            settings.specialTable["20"] = new
-            save()
-        end,
-
-        Info = { "Toggle visibility for individual doors" }
     })
 
     ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Planetarium

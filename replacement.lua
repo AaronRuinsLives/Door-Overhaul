@@ -31,7 +31,7 @@ local normalRoomFilenames = {
     --[[Corpse 3]] [44] = { default = "04c_rd_corpseC_a", variants = {"04c_rd_corpseC_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Sheol]] [14] = { default = "05_rd_sheol_a", variants = {"05_rd_sheol_a"}, anm2 = "rd_default", allowFlip = true }, --Change destroyed frame
     --[[Cathedral]] [15] = { default = "05a_rd_cathedral_a", variants = {"05a_rd_cathedral_a"}, anm2 = "rd_cathedral", allowFlip = true },
-    --[[Darkroom]] [16] = { default = "06_rd_darkroom_a", variants = {"06_rd_darkroom_a"}, anm2 = "rd_default", allowFlip = true },
+    --[[Darkroom]] [16] = { default = "06_rd_darkroom_a", variants = {"06_rd_darkroom_a"}, anm2 = "rd_default", allowFlip = true }, --make anm2
     --[[Chest]] [17] = { default = "06a_rd_chest_a", variants = {"06a_rd_chest_a"}, anm2 = "rd_default", allowFlip = true },
 
 }
@@ -43,9 +43,12 @@ local roomFilenames = {
     --[[Greed Treasure]] [-4] = { default = "00_rd_treasuredoor_greed", anm2 = "rd_default" },
     --[[Boss]] [5] = { default = "00_rd_bossdoor", anm2 = "rd_boss" },
     --[[Curse]] [10] = { default = "00_rd_cursedoor", anm2 = "rd_default" },
+    --[[Sacrafice]] [13] = { default = "00_rd_sacrafice", anm2 = "rd_default" },
+    --[[Devil]] [14] = { default = "00_rd_angel", anm2 = "rd_default" },
+    --[[Angel]] [15] = { default = "00_rd_angel", anm2 = "rd_cathedral" },
     --[[Chest]] [20] = { default = "00_rd_chest", anm2 = "rd_default" },
     --[[Dice]] [21] = { default = "00_rd_diceroom", anm2 = "rd_default" },
-    --[[Planetarium]] [24] = { default = "00_rd_planet", anm2 = "rd_default" },
+    --[[Planetarium]] [24] = { default = "00_rd_planetarium", anm2 = "rd_lit" }, --make anm2
     --[[Blue Womb]] [28] = { default = "04x_rd_blue_a", variants = {"04x_rd_blue_a"}, anm2 = "rd_default", allowFlip = true }, --Blue Key 
 }
 
