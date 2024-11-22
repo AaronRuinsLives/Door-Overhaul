@@ -13,7 +13,7 @@ local normalRoomFilenames = {
     --[[Mines]] [32] = { default = "02c_rd_mines_a", variants = {"02c_rd_mines_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Mines Shaft]] [58] = { default = "02c_rd_mines_a", variants = {"02c_rd_mines_a"}, anm2 = "rd_default", allowFlip = true }, --No idea where this would be used but just in case
     --[[Ashpit]] [46] = { default = "02d_rd_ashpit_a", variants = {"02d_rd_ashpit_a"}, anm2 = "rd_default", allowFlip = true },
-    --[[Ashpit Shaft]] [59] = { default = "02d_rd_ashpit_a", variants = {"02d_rd_ashpit_a"}, anm2 = "rd_default", allowFlip = true }, 
+    --[[Ashpit Shaft]] [59] = { default = "02d_rd_ashpit_a", variants = {"02d_rd_ashpit_a"}, anm2 = "rd_default", allowFlip = true },  --No idea where this would be used but just in case
     --[[Depths]] [7] = { default = "03_rd_depths_a", variants = {"03_rd_depths_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Necropolis]] [8] = { default = "03a_rd_necropolis_a", variants = {"03a_rd_necropolis_a"}, anm2 = "rd_default", allowFlip = true },
     --[[Dank Depths]] [9] = { default = "03b_rd_dank_a", variants = {"03b_rd_dank_a"}, anm2 = "rd_default", allowFlip = true },
@@ -44,7 +44,7 @@ local roomFilenames = {
     --[[Boss]] [5] = { default = "00_rd_bossdoor", anm2 = "rd_boss" },
     --[[Curse]] [10] = { default = "00_rd_cursedoor", anm2 = "rd_default" },
     --[[Sacrafice]] [13] = { default = "00_rd_sacrafice", anm2 = "rd_default" },
-    --[[Devil]] [14] = { default = "00_rd_angel", anm2 = "rd_default" },
+    --[[Devil]] --[14] = { default = "00_rd_angel", anm2 = "rd_default" },
     --[[Angel]] [15] = { default = "00_rd_angel", anm2 = "rd_cathedral" },
     --[[Chest]] [20] = { default = "00_rd_chest", anm2 = "rd_default" },
     --[[Dice]] [21] = { default = "00_rd_diceroom", anm2 = "rd_default" },
@@ -53,13 +53,17 @@ local roomFilenames = {
 }
 
 local function getDoorInfo(indexedDoor, currentRoom, settings)
+
+    --Gets the current roomtype of the current room you're in and the target room of the door
     local current = indexedDoor.CurrentRoomType
     local target = indexedDoor.TargetRoomType
 
     local doorTable = nil
 
+
     --This next section prioritizes showing some rooms over others, such as special rooms or curse doors
-            
+    
+    
     --Normal Rooms
     if ((current == 1 or current == 6) and (target == 1 or target == 6)) then                                                                         
         if settings.normalDoors == false or settings.normalTable[tostring(currentRoom:GetBackdropType())] == "Off" then return nil end 
@@ -69,14 +73,17 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
     elseif settings.specialDoors == false then return nil  
     elseif (current == 7 or current == 8 or current == 29 or target == 7 or target == 8 or target == 29) then return nil                                                                               --Secret
 
-    --Curse Rooms
-    elseif settings.specialTable[tostring(target)] == true and target == 10 then                                                                      
+    --Curse Rooms (As current)
+    elseif current == 10 and settings.specialTable[tostring(current)] == true then                                                                      
+        doorTable = roomFilenames[current]
+    --Curse Rooms (As target)
+    elseif target == 10 and settings.specialTable[tostring(target)] == true then                                                                      
         doorTable = roomFilenames[target]
         
     --Treasure Rooms
-    elseif settings.specialTable[tostring(target)] == true and target == 4 then                                                                       
+    elseif target == 4 and settings.specialTable[tostring(target)] == true then                                                                       
 
-        --Greed Boss Treasure Rooms
+    --Greed Boss Treasure Rooms
         if Game():IsGreedMode() and (indexedDoor.Slot == 6 or (Game():GetLevel():GetCurrentRoomIndex() == 98 and indexedDoor.Slot == 0)) then
             target = -4
         end
@@ -116,6 +123,7 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
     return {file = doorFile , anm2 = doorTable.anm2}
 end
 
+--The actual code that goes through, checks, and replaces each door
 return function(settings)
     local currentRoom = Game():GetRoom()
 

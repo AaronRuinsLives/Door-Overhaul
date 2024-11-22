@@ -627,7 +627,7 @@ local function setupConfig()
 
     CurrentSetting = function() return settings.specialTable["14"] end,
     
-    Display = function() return (settings.specialDoors and "" or "X  ") .. "Curse: " .. (settings.specialTable["14"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Devil (IN PROGRESS): " .. (settings.specialTable["14"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
 
     OnChange = function(new)
         if settings.specialDoors == false then return end
