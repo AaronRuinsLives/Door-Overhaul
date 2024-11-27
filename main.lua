@@ -38,8 +38,10 @@ local settings = {
         ["2"] = true,
         ["4"] = true,
         ["-4"] = true,
+        ["-5"] = true,
         ["5"] = true,
         ["10"] = true,
+        ["11"] = true,
         ["13"] = true,
         ["14"] = true,
         ["15"] = true,
@@ -559,6 +561,26 @@ local function setupConfig()
         Info = { "Toggle visibility for individual doors" }
     })
 
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Devil Treasure
+
+    Type = ModConfigMenu.OptionType.BOOLEAN,
+
+    Default = true,
+
+    CurrentSetting = function() return settings.specialTable["-5"] end,
+    
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Devil Treasure: " .. (settings.specialTable["-5"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+    OnChange = function(new)
+        if settings.specialDoors == false then return end
+
+        settings.specialTable["-5"] = new
+        save()
+    end,
+
+    Info = { "Toggle visibility for individual doors" }
+    })
+
     ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Boss
 
         Type = ModConfigMenu.OptionType.BOOLEAN,
@@ -598,8 +620,28 @@ local function setupConfig()
 
         Info = { "Toggle visibility for individual doors" }
     })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Challange
+
+    Type = ModConfigMenu.OptionType.BOOLEAN,
+
+    Default = true,
+
+    CurrentSetting = function() return settings.specialTable["11"] end,
     
-    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Sacrafice
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Challanges: " .. (settings.specialTable["11"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+    OnChange = function(new)
+        if settings.specialDoors == false then return end
+
+        settings.specialTable["11"] = new
+        save()
+    end,
+
+    Info = { "Toggle visibility for individual doors" }
+    })
+    
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Sacrifice
 
     Type = ModConfigMenu.OptionType.BOOLEAN,
 
@@ -607,7 +649,7 @@ local function setupConfig()
 
     CurrentSetting = function() return settings.specialTable["13"] end,
     
-    Display = function() return (settings.specialDoors and "" or "X  ") .. "Sacrafice: " .. (settings.specialTable["13"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+    Display = function() return (settings.specialDoors and "" or "X  ") .. "Sacrifice: " .. (settings.specialTable["13"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
 
     OnChange = function(new)
         if settings.specialDoors == false then return end
@@ -724,6 +766,7 @@ end
 
 
 local replaceDoors = require("replacement")
+DoorOverhaul:AddCallback(ModCallbacks.MC_POST_UPDATE, function() replaceDoors(settings) end)
 DoorOverhaul:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function() replaceDoors(settings) end)
 
 --ModConfigMenu
