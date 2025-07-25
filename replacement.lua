@@ -134,18 +134,23 @@ local function getDoorInfo(indexedDoor, currentRoom, currentRoomFlags, targetRoo
         doorTable = roomFilenames[5]
 
         --Boss Rush
-        if current == 17 or target == 17 then
+        if indexedDoor.TargetRoomIndex == -5 then
             return nil
         end
 
         --Hush
-        if stageEnum == 9 then
+        if indexedDoor.TargetRoomIndex == -8 or stageEnum == 9 then
             return nil
         end
 
         --Corpse Entrance
         if stageEnum == 6 and currentRoom:GetBackdropType() == 10 then
             doorTable = roomFilenames[52]
+        end
+
+        --Mega Satan
+        if indexedDoor.TargetRoomIndex == -7 then
+            return nil
         end
         
     --Treasure Rooms
