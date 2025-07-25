@@ -2,7 +2,7 @@
 	<Info CreatedBy="Aaron" CreatedOn="8/8/2024 7:44:47 PM" Version="22" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="00_rd_bossdoor.png" Id="0"/>
+			<Spritesheet Path="00_rd_angel.png" Id="0"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="Background" Id="0" SpritesheetId="0"/>

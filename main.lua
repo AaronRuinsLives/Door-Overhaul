@@ -1,14 +1,14 @@
+local json = require("json")
 DoorOverhaul = RegisterMod("Door Overhaul", 1)
 
-local json = require("json")
-
+--Set defaults idiot style
 local settings = {
     variants = true,
     flipping = true,
     normalDoors = true,
     specialDoors = true,
 
-    normalTable = { --Set defaults idiot style
+    normalTable = { 
         ["0"] = "On",
         ["1"] = "On",
         ["2"] = "On",
@@ -22,7 +22,11 @@ local settings = {
         ["10"] = "On",
         ["11"] = "On",
         ["12"] = "On",
+        ["13"] = "On",
+        ["14"] = "On",
         ["15"] = "On",
+        ["16"] = "On",
+        ["17"] = "On",
         ["31"] = "On",
         ["32"] = "On",
         ["33"] = "On",
@@ -32,24 +36,47 @@ local settings = {
         ["42"] = "On",
         ["43"] = "On",
         ["44"] = "On",
+        ["45"] = "On",
+        ["46"] = "On",
+        ["47"] = "On",
+        ["49"] = "On",
+        ["50"] = "On",
+        ["51"] = "On",
+        ["52"] = "On",
+        ["53"] = "On",
+        ["58"] = "On",
+        ["59"] = "On",
+        ["60"] = "On",
     },
 
-   specialTable = {
+    specialTable = {
         ["2"] = true,
         ["4"] = true,
         ["-4"] = true,
         ["-5"] = true,
         ["5"] = true,
+        ["9"] = true,
         ["10"] = true,
         ["11"] = true,
+        ["-11"] = true,
         ["12"] = true,
         ["13"] = true,
         ["14"] = true,
         ["15"] = true,
+        ["18"] = true,
+        ["19"] = true,
         ["20"] = true,
         ["21"] = true,
-        ["24"] =true,
+        ["24"] = true,
         ["28"] = true,
+        ["49"] = true,
+        ["50"] = true,
+        ["51"] = true,
+        ["52"] = true,
+        ["53"] = true,
+        ["54"] = true,
+        ["55"] = true,
+        ["-55"] = true,
     },
 }
 
@@ -63,6 +90,24 @@ local function load()
 
     local data = DoorOverhaul:LoadData()
     settings = json.decode(data)
+
+    --Set missing values
+    if settings.variants == nil then settings.variants = true end
+    if settings.flipping == nil then settings.flipping = true end
+    if settings.normalDoors == nil then settings.normalDoors = true end
+    if settings.specialDoors == nil then settings.specialDoors = true end
+
+    for key, value in pairs(normalTable) do
+        if settings.normalTable[key] == nil then
+            settings.normalTable[key] = "On"
+        end
+    end
+
+    for key, value in pairs(specialTable) do
+        if settings.specialTable[key] == nil then
+            settings.specialTable[key] = "On"
+        end
+    end
 end
 
 local function setupConfig()
@@ -312,6 +357,52 @@ local function setupConfig()
             if settings.normalDoors == false then return end
 
             settings.normalTable["6"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Mines
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["32"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Mines: " .. settings.normalTable["32"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["32"] = choices[new]
+            settings.normalTable["58"] = choices[new]
+            save()
+        end,
+
+        Minimum = 1,
+
+        Maximum = 3,
+
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Normal", { --Ashpit
+
+        Type = ModConfigMenu.OptionType.NUMBER,
+
+        CurrentSetting = function() return getIndex(settings.normalTable["46"]) end,
+
+        Display = function() return (settings.normalDoors and "" or "X  ") .. "Ashpit: " .. settings.normalTable["46"] .. (settings.normalDoors and "" or "  X")  end,
+
+        OnChange = function(new)
+            if settings.normalDoors == false then return end
+
+            settings.normalTable["46"] = choices[new]
+            settings.normalTable["59"] = choices[new]
             save()
         end,
 
@@ -624,22 +715,42 @@ local function setupConfig()
 
     ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Challange
 
-    Type = ModConfigMenu.OptionType.BOOLEAN,
+        Type = ModConfigMenu.OptionType.BOOLEAN,
 
-    Default = true,
+        Default = true,
 
-    CurrentSetting = function() return settings.specialTable["11"] end,
-    
-    Display = function() return (settings.specialDoors and "" or "X  ") .. "Challanges: " .. (settings.specialTable["11"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+        CurrentSetting = function() return settings.specialTable["11"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Challange: " .. (settings.specialTable["11"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
 
-    OnChange = function(new)
-        if settings.specialDoors == false then return end
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
 
-        settings.specialTable["11"] = new
-        save()
-    end,
+            settings.specialTable["11"] = new
+            save()
+        end,
 
-    Info = { "Toggle visibility for individual doors" }
+        Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Challange
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["-11"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Boss Challange: " .. (settings.specialTable["-11"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["-11"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
     })
     
     ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Sacrifice
@@ -700,6 +811,27 @@ local function setupConfig()
     end,
 
     Info = { "Toggle visibility for individual doors" }
+    })
+
+    ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Bedroom
+
+        Type = ModConfigMenu.OptionType.BOOLEAN,
+
+        Default = true,
+
+        CurrentSetting = function() return settings.specialTable["18"] end,
+        
+        Display = function() return (settings.specialDoors and "" or "X  ") .. "Bedroom " .. (settings.specialTable["18"] and "On" or "Off") .. (settings.specialDoors and "" or "  X") end,
+
+        OnChange = function(new)
+            if settings.specialDoors == false then return end
+
+            settings.specialTable["18"] = new
+            settings.specialTable["19"] = new
+            save()
+        end,
+
+        Info = { "Toggle visibility for individual doors" }
     })
 
     ModConfigMenu.AddSetting("Door Overhaul", "Special", { --Chest
