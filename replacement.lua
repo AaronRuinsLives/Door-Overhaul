@@ -43,6 +43,7 @@ local normalRoomFilenames = {
 --Same as normalRoomFilenames but for special rooms and indexed by roomType instead
 local roomFilenames = {
     --[[Shop]] [2] = { default = "00_rd_shopdoor" },
+    --[[Shop (Tainted Keeper)]] [-2] = { default = "00_rd_shopdoor_t_keeper" },
     --[[Treasure]] [4] = { default = "00_rd_treasuredoor", redRoom = "rd_treasuredoor_redroom" },
     --[[Greed Treasure]] [-4] = { default = "00_rd_treasuredoor_greed" },
     --[[Devil Treasure]] [-5] = { default = "00_rd_treasuredoor_devil" },
@@ -64,7 +65,8 @@ local roomFilenames = {
     --[[Blue Womb]] [28] = { default = "04x_rd_blue_a", variants = {"04x_rd_blue_a"}, allowFlip = true },
     --[[Downpour Entrance]] [50] = { default = "00_rd_entrance_downpour", },
     --[[Mines Entrance]] [51] = { default = "00_rd_entrance_mines" },
-    --[[Corpse Entrance]] [52] = { default = "00_rd_shopdoor" },
+    --[[Mausoleum Entrance]] [52] = { default = "00_rd_entrance_mausoleum" },
+    --[[Corpse Entrance]] [53] = { default = "00_rd_entrance_corpse" },
     --[[Mirror]] [54] = { default = "00_rd_mirror", anm2 = "00_rd_mirror" },
     --[[Mineshaft Mines]] [55] = { default = "02c_rd_mines_a" },
     --[[Mineshaft Ashpit]] [-55] = { default = "02d_rd_ashpit_a" },
@@ -91,15 +93,26 @@ local function getDoorInfo(indexedDoor, currentRoom, currentRoomFlags, targetRoo
     --Special Rooms
     elseif settings.specialDoors == false then return nil end
 
-    --Alt Path Entrances
-    if indexedDoor.TargetRoomIndex == -10 and (stageEnum == 1 or stageEnum == 2) and settings.specialTable["50"] == true then
+    --Alt Path Entrances and Story doors
+    --Downpour Entrance
+    if (current == 27 or target == 27) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 1 or stageEnum == 2) and settings.specialTable["50"] == true then
         doorTable = roomFilenames[50]
 
-    elseif indexedDoor.TargetRoomIndex == -10 and (stageEnum == 3 or stageEnum == 4) and settings.specialTable["51"] == true then
+    --Mineshaft Entrance
+    elseif (current == 27 or target == 27) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 3 or stageEnum == 4) and settings.specialTable["51"] == true then
         doorTable = roomFilenames[51]
 
-    elseif indexedDoor.TargetRoomIndex == -10 and (stageEnum == 5 or stageEnum == 6) and settings.specialTable["52"] == true then
+    --Mausoleum Entrance
+    elseif (current == 27 or target == 27) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 5 or stageEnum == 6) and settings.specialTable["52"] == true then
         doorTable = roomFilenames[52]
+
+    --Corpse Entrance (Outside)
+    elseif (target == 5) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 5 or stageEnum == 6) and settings.specialTable["53"] == true then
+        doorTable = roomFilenames[53]
+
+    --Corpse Entrance (Inside)
+    elseif (current == 5) and currentRoom:GetBackdropType() == 10 and (stageEnum == 5 or stageEnum == 6) and settings.specialTable["53"] == true then
+        doorTable = roomFilenames[53]
 
     --Mirror
     elseif indexedDoor.TargetRoomIndex == -100 and settings.specialTable["54"] then
@@ -116,8 +129,9 @@ local function getDoorInfo(indexedDoor, currentRoom, currentRoomFlags, targetRoo
         end
 
     --Secret
-    elseif (current == 7 or current == 8 or current == 29 or target == 7 or target == 8 or target == 29) then 
+    elseif (current == 7 or target == 7) or (current == 8 or target == 8) or (current == 29 or target == 29) then 
         return nil
+        
     --Curse Rooms
     elseif (current == 10 or target == 10) and settings.specialTable["10"] == true then                                                                      
         doorTable = roomFilenames[10]
@@ -143,16 +157,19 @@ local function getDoorInfo(indexedDoor, currentRoom, currentRoomFlags, targetRoo
             return nil
         end
 
-        --Corpse Entrance
-        if stageEnum == 6 and currentRoom:GetBackdropType() == 10 then
-            doorTable = roomFilenames[52]
-        end
-
         --Mega Satan
         if indexedDoor.TargetRoomIndex == -7 then
             return nil
         end
-        
+
+    --Challenge and Boss Challenge     
+    elseif (current == 11 or target == 11) and settings.specialTable["11"] == true then
+        doorTable = roomFilenames[11]
+
+        if stageEnum == 2 or stageEnum == 4 or stageEnum == 6 or stageEnum == 8 then
+            doorTable = roomFilenames[-11]
+        end
+
     --Treasure Rooms
     elseif (current == 4 or target == 4) and settings.specialTable["4"] == true then   
         doorTable = roomFilenames[4]                                                      
@@ -165,14 +182,19 @@ local function getDoorInfo(indexedDoor, currentRoom, currentRoomFlags, targetRoo
         elseif currentRoomFlags>>11 == 1 or targetRoomFlags>>11 == 1 then
             doorTable = roomFilenames[-5]
         end   
-    --Challenge and Boss Challenge     
-    elseif (current == 11 or target == 11) and settings.specialTable["11"] == true then
-        doorTable = roomFilenames[11]
 
-        if stageEnum == 2 or stageEnum == 4 or stageEnum == 6 or stageEnum == 8 then
-            doorTable = roomFilenames[-11]
+    --Shops
+    elseif (current == 2 or target == 2) and settings.specialTable["2"] == true then   
+        doorTable = roomFilenames[2]                                                      
+
+        --Tainted Keeper
+        local numPlayers = Game():GetNumPlayers()
+        for x = 0, numPlayers - 1, 1 do
+            if Game():GetPlayer(x):GetPlayerType() == 33 then 
+                doorTable = roomFilenames[-2]
+                break
+            end
         end
-
 
     --All Other Special Rooms
     else                                                                                                                                           
