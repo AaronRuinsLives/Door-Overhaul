@@ -67,6 +67,8 @@ local settings = {
         ["19"] = true,
         ["20"] = true,
         ["21"] = true,
+        ["22"] = true,
+        ["23"] = true,
         ["24"] = true,
         ["28"] = true,
         ["49"] = true,
@@ -77,6 +79,7 @@ local settings = {
         ["54"] = true,
         ["55"] = true,
         ["-55"] = true,
+        ["56"] = true,
     },
 }
 
@@ -97,13 +100,13 @@ local function load()
     if settings.normalDoors == nil then settings.normalDoors = true end
     if settings.specialDoors == nil then settings.specialDoors = true end
 
-    for key, value in pairs(normalTable) do
+    for key, value in pairs(settings.normalTable) do
         if settings.normalTable[key] == nil then
             settings.normalTable[key] = "On"
         end
     end
 
-    for key, value in pairs(specialTable) do
+    for key, value in pairs(settings.specialTable) do
         if settings.specialTable[key] == nil then
             settings.specialTable[key] = "On"
         end

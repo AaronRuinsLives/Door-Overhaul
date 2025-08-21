@@ -2,7 +2,7 @@
 local normalRoomFilenames = {
     --[[NULL]] [0] = { default = "rd_normaldoor" },
     --[[Basement]] [1] = { default = "01_rd_basement_a", variants = {"01_rd_basement_a", "01_rd_basement_b"}, redRoom = "rd_basement_redroom", allowFlip = true },
-    --[[Cellar]] [2] = { default = "01a_rd_cellar_a", variants = {"01a_rd_cellar_a"}, allowFlip = true },
+    --[[Cellar]] [2] = { default = "01a_rd_cellar_a", variants = {"01a_rd_cellar_a", "01a_rd_cellar_b"}, allowFlip = true },
     --[[Burning Basement]] [3] = { default = "01b_rd_burning_a", variants = {"01b_rd_burning_a", "01b_rd_burning_b", "01b_rd_burning_c", "01b_rd_burning_d"}, allowFlip = true },
     --[[Downpour]] [31] = { default = "01c_rd_downpour_a", variants = {"01c_rd_downpour_a"}, allowFlip = true },
     --[[Dross]] [45] = { default = "01d_rd_dross_a", variants = {"01d_rd_dross_a"}, allowFlip = true },
@@ -30,7 +30,7 @@ local normalRoomFilenames = {
     --[[Corpse 3]] [44] = { default = "04c_rd_corpseC_a", variants = {"04c_rd_corpseC_a"}, allowFlip = true },
     --[[Sheol]] [14] = { default = "05_rd_sheol_a", variants = {"05_rd_sheol_a"}, allowFlip = true }, 
     --[[Cathedral]] [15] = { default = "05a_rd_cathedral_a", variants = {"05a_rd_cathedral_a"}, anm2 = "rd_cathedral", allowFlip = true },
-    --[[Darkroom]] [16] = { default = "06_rd_darkroom_a", variants = {"06_rd_darkroom_a"}, allowFlip = true }, --make anm2
+    --[[Darkroom]] [16] = { default = "06_rd_darkroom_a", variants = {"06_rd_darkroom_a"}, allowFlip = true },
     --[[Chest]] [17] = { default = "06a_rd_chest_a", variants = {"06a_rd_chest_a"}, allowFlip = true },
     --[[Isaac's Bedroom]] [49] = { default = "13_rd_house_a", variants = {"13_rd_house_a"} },
     --[[Hallway]] [50] = { default = "13_rd_house_a", variants = {"13_rd_house_a"}, redRoom = "rd_house_tainted" },
@@ -61,15 +61,18 @@ local roomFilenames = {
     --[[Barren]] [19] = { default = "00_rd_bedroom"},
     --[[Chest]] [20] = { default = "00_rd_chest" },
     --[[Dice]] [21] = { default = "00_rd_diceroom" },
-    --[[Planetarium]] [24] = { default = "00_rd_planetarium", }, --make anm2
+    --[[Black Market Exit]] [22] = { default = "00_rd_blackmarket_exit", anm2 = "rd_exit" },
+    --[[Greed Exit]] [23] = { default = "00_rd_greed_exit", anm2 = "rd_exit" },
+    --[[Planetarium]] [24] = { default = "00_rd_planetarium" },
     --[[Blue Womb]] [28] = { default = "04x_rd_blue_a", variants = {"04x_rd_blue_a"}, allowFlip = true },
     --[[Downpour Entrance]] [50] = { default = "00_rd_entrance_downpour", },
     --[[Mines Entrance]] [51] = { default = "00_rd_entrance_mines" },
-    --[[Mausoleum Entrance]] [52] = { default = "00_rd_entrance_mausoleum" },
+    --[[Mausoleum Entrance]] [52] = { default = "00_rd_entrance_mausoleum", anm2 = "rd_entrance_mausoleum" },
     --[[Corpse Entrance]] [53] = { default = "00_rd_entrance_corpse" },
     --[[Mirror]] [54] = { default = "00_rd_mirror", anm2 = "00_rd_mirror" },
     --[[Mineshaft Mines]] [55] = { default = "02c_rd_mines_a" },
     --[[Mineshaft Ashpit]] [-55] = { default = "02d_rd_ashpit_a" },
+    --[[Ascent Entrance]] [56] = { default = "00_rd_shopdoor" },
 }
 
 --Determines what door should be shown
@@ -94,8 +97,12 @@ local function getDoorInfo(indexedDoor, currentRoom, currentRoomFlags, targetRoo
     elseif settings.specialDoors == false then return nil end
 
     --Alt Path Entrances and Story doors
+    --Ascent Entrance
+    if indexedDoor.TargetRoomIndex == -10 and Game():GetLevel():GetCurrentRoomIndex() == 84 and stageEnum == 6 then
+        return nil
+
     --Downpour Entrance
-    if (current == 27 or target == 27) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 1 or stageEnum == 2) and settings.specialTable["50"] == true then
+    elseif (current == 27 or target == 27) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 1 or stageEnum == 2) and settings.specialTable["50"] == true then
         doorTable = roomFilenames[50]
 
     --Mineshaft Entrance
@@ -267,6 +274,7 @@ return function(settings)
 
         doorSprite:Play(currentAnim)
         doorSprite:SetFrame(currentFrame)
+        doorSprite:Play(currentAnim)
 
         doorSprite:LoadGraphics()
 
