@@ -1,271 +1,424 @@
---A list of all backdrop ID's with their corosponding normal doors
-local normalRoomFilenames = {
-    --[[NULL]] [0] = { default = "rd_normaldoor" },
-    --[[Basement]] [1] = { default = "01_rd_basement_a", variants = {"01_rd_basement_a", "01_rd_basement_b"}, redRoom = "rd_basement_redroom", allowFlip = true },
-    --[[Cellar]] [2] = { default = "01a_rd_cellar_a", variants = {"01a_rd_cellar_a", "01a_rd_cellar_b"}, allowFlip = true },
-    --[[Burning Basement]] [3] = { default = "01b_rd_burning_a", variants = {"01b_rd_burning_a", "01b_rd_burning_b", "01b_rd_burning_c", "01b_rd_burning_d"}, allowFlip = true },
-    --[[Downpour]] [31] = { default = "01c_rd_downpour_a", variants = {"01c_rd_downpour_a"}, allowFlip = true },
-    --[[Dross]] [45] = { default = "01d_rd_dross_a", variants = {"01d_rd_dross_a"}, allowFlip = true },
-    --[[Caves]] [4] = { default = "02_rd_caves_a", variants = {"02_rd_caves_a", "02_rd_caves_b"}, allowFlip = true },
-    --[[Catacombs]] [5] = { default = "02a_rd_catacombs_a", variants = {"02a_rd_catacombs_a"}, allowFlip = true }, 
-    --[[Flooded Caves]] [6] = { default = "02b_rd_flooded_a", variants = {"02b_rd_flooded_a"}, allowFlip = true },
-    --[[Mines]] [32] = { default = "02c_rd_mines_a", variants = {"02c_rd_mines_a"}, allowFlip = true },
-    --[[Mines Shaft]] [58] = { default = "02c_rd_mines_a", variants = {"02c_rd_mines_a"}, allowFlip = true }, --No idea where this would be used but just in case
-    --[[Ashpit]] [46] = { default = "02d_rd_ashpit_a", variants = {"02d_rd_ashpit_a", "02d_rd_ashpit_b"}, allowFlip = true },
-    --[[Ashpit Shaft]] [59] = { default = "02d_rd_ashpit_a", variants = {"02d_rd_ashpit_a", "02d_rd_ashpit_b"}, allowFlip = true },  --No idea where this would be used but just in case
-    --[[Depths]] [7] = { default = "03_rd_depths_a", variants = {"03_rd_depths_a"}, allowFlip = true },
-    --[[Necropolis]] [8] = { default = "03a_rd_necropolis_a", variants = {"03a_rd_necropolis_a"}, allowFlip = true },
-    --[[Dank Depths]] [9] = { default = "03b_rd_dank_a", variants = {"03b_rd_dank_a"}, allowFlip = true },
-    --[[Mausoleum 1]] [33] = { default = "03c_rd_mausoleum_a", variants = {"03c_rd_mausoleum_a"}, allowFlip = true },
-    --[[Mausoleum 2]] [40] = { default = "03c_rd_mausoleum_a", variants = {"03c_rd_mausoleum_a"}, allowFlip = true },
-    --[[Mausoleum 3]] [41] = { default = "03c_rd_mausoleum_a", variants = {"03c_rd_mausoleum_a"}, allowFlip = true },
-    --[[Mausoleum 4]] [42] = { default = "03c_rd_mausoleum_a", variants = {"03c_rd_mausoleum_a"}, allowFlip = true },
-    --[[Gehenna]] [47] = { default = "03d_rd_gehenna_a", variants = {"03d_rd_gehenna_a"}, allowFlip = true },
-    --[[Womb]] [10] = { default = "04_rd_womb_a", variants = {"04_rd_womb_a"}, allowFlip = true },
-    --[[Utero]] [11] = { default = "04a_rd_utero_a", variants = {"04a_rd_utero_a"}, allowFlip = true },
-    --[[Scarred]] [12] = { default = "04b_rd_scarred_a", variants = {"04b_rd_scarred_a"}, allowFlip = true },
-    --[[Blue Womb]] [13] = { default = "04x_rd_blue_a", variants = {"04x_rd_blue_a"}, allowFlip = true }, --No idea where this would be used but just in case
-    --[[Corpse 1]] [34] = { default = "04c_rd_corpseA_a", variants = {"04c_rd_corpseA_a"}, allowFlip = true },
-    --[[Corpse 2]] [43] = { default = "04c_rd_corpseB_a", variants = {"04c_rd_corpseB_a"}, allowFlip = true },
-    --[[Corpse 3]] [44] = { default = "04c_rd_corpseC_a", variants = {"04c_rd_corpseC_a"}, allowFlip = true },
-    --[[Sheol]] [14] = { default = "05_rd_sheol_a", variants = {"05_rd_sheol_a"}, allowFlip = true }, 
-    --[[Cathedral]] [15] = { default = "05a_rd_cathedral_a", variants = {"05a_rd_cathedral_a"}, anm2 = "rd_cathedral", allowFlip = true },
-    --[[Darkroom]] [16] = { default = "06_rd_darkroom_a", variants = {"06_rd_darkroom_a"}, allowFlip = true },
-    --[[Chest]] [17] = { default = "06a_rd_chest_a", variants = {"06a_rd_chest_a"}, allowFlip = true },
-    --[[Isaac's Bedroom]] [49] = { default = "13_rd_house_a", variants = {"13_rd_house_a"} },
-    --[[Hallway]] [50] = { default = "13_rd_house_a", variants = {"13_rd_house_a"}, redRoom = "rd_house_tainted" },
-    --[[Mom's Bedroom]] [51] = { default = "13_rd_house_a", variants = {"13_rd_house_a"} },
-    --[[Closet]] [52] = { default = "13_rd_house_a", variants = {"13_rd_house_a"} },
-    --[[Closet 2]] [53] = { default = "13a_rd_darkhouse_a", variants = {"13a_rd_darkhouse_a"} },
-    --[[Closet 3]] [60] = { default = "13a_rd_darkhouse_a", variants = {"13a_rd_darkhouse_a"} },
+local normalDoorFilenames = {
+    --[[Default]] [0] = { doors = {"normaldoor"}, weights = {1}, redRoom = "normaldoor_redroom" },
+
+    --[[Basement]] [1] = { doors = {"01_basement_a", "01_basement_b"}, weights = {1, 1}, redRoom = "01_basement_redroom" },
+    --[[Cellar]] [2] = { doors = {"01a_cellar_a", "01a_cellar_b"}, weights = {1, 0.75}, redRoom = "01a_cellar_redroom" },
+    --[[Burning Basement]] [3] = { doors = {"01b_burning_a", "01b_burning_b", "01b_burning_c", "01b_burning_d"}, weights = {1, 1, 0.75, 0.75}, redRoom = "01b_burning_redroom" },
+    --[[Downpour]] [31] = { doors = {"01c_downpour_a"}, weights = {1}, redRoom = "01c_downpour_redroom" },
+    --[[Dross]] [45] = { doors = {"01d_dross_a", "01d_dross_b"}, weights = {1, 1}, redRoom = "01d_dross_redroom" },
+
+    --[[Caves]] [4] = { doors = {"02_caves_a", "02_caves_b"}, weights = {1, 0.25}, redRoom = "02_caves_redroom" },
+    --[[Catacombs]] [5] = { doors = {"02a_catacombs_a", "02a_catacombs_b"}, weights = {1, 1}, redRoom = "02a_catacombs_redroom" }, 
+    --[[Flooded Caves]] [6] = { doors = {"02b_flooded_a"}, weights = {1}, redRoom = "02b_flooded_redroom" },
+    --[[Mines]] [32] = { doors = {"02c_mines_a"}, weights = {1}, redRoom = "02c_mines_redroom" },
+    --[[Mines Shaft]] [58] = { doors = {"02c_mines_a"}, weights = {1}, redRoom = "02c_mines_redroom" }, 
+    --[[Ashpit]] [46] = { doors = {"02d_ashpit_a", "02d_ashpit_b"}, weights = {1, 1}, redRoom = "02d_ashpit_redroom" },
+    --[[Ashpit Shaft]] [59] = { doors = {"02d_ashpit_a", "02d_ashpit_b"}, weights = {1, 1}, redRoom = "02d_ashpit_redroom" },
+ 
+    --[[Depths]] [7] = { doors = {"03_depths_a"}, weights = {1}, redRoom = "03_depths_redroom" },
+    --[[Necropolis]] [8] = { doors = {"03a_necropolis_a"}, weights = {1}, redRoom = "03a_necropolis_redroom" },
+    --[[Dank Depths]] [9] = { doors = {"03b_dank_a"}, weights = {1}, redRoom = "03b_dank_redroom" },
+    --[[Mausoleum #1]] [33] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b", "03c_mausoleum_c"}, weights = {1, 1, 0.75}, redRoom = "03c_mausoleum_redroom" },
+    --[[Mausoleum #2]] [40] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b", "03c_mausoleum_c"}, weights = {1, 1, 0.75}, redRoom = "03c_mausoleum_redroom" },
+    --[[Mausoleum #3]] [41] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b", "03c_mausoleum_c"}, weights = {1, 1, 0.75}, redRoom = "03c_mausoleum_redroom" },
+    --[[Mausoleum #4]] [42] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b", "03c_mausoleum_c"}, weights = {1, 1, 0.75}, redRoom = "03c_mausoleum_redroom" },
+    --[[Gehenna]] [47] = { doors = {"03d_gehenna_a"}, weights = {1}, redRoom = "03d_gehenna_redroom" },
+   
+    --[[Womb]] [10] = { doors = {"04_womb_a"}, weights = {1}, redRoom = "04_womb_redroom" },
+    --[[Utero]] [11] = { doors = {"04a_utero_a"}, weights = {1}, redRoom = "04a_utero_redroom" },
+    --[[Scarred Womb]] [12] = { doors = {"04b_scarred_a"}, weights = {1}, redRoom = "04b_scarred_redroom" },
+    --[[Corpse #1]] [34] = { doors = {"04c_corpseA_a"}, weights = {1}, redRoom = "04c_corpseA_redroom" },
+    --[[Corpse #2]] [43] = { doors = {"04c_corpseB_a"}, weights = {1}, redRoom = "04c_corpseB_redroom" },
+    --[[Corpse #3]] [44] = { doors = {"04c_corpseC_a"}, weights = {1}, redRoom = "04c_corpseC_redroom" },
+    --[[Blue Womb]] [13] = { doors = {"04x_blue_a"}, weights = {1}, redRoom = "04x_blue_redroom" },
+   
+    --[[Sheol]] [14] = { doors = {"05_sheol_a"}, weights = {1}, redRoom = "05_sheol_redroom" }, 
+    --[[Cathedral]] [15] = { doors = {"05a_cathedral_a"}, weights = {1}, redRoom = "05a_cathedral_redroom", anm2 = "cathedral" },
+    --[[Darkroom]] [16] = { doors = {"06_darkroom_a"}, weights = {1}, redRoom = "06_darkroom_redroom" },
+    --[[Chest]] [17] = { doors = {"06a_chest_a"}, weights = {1}, redRoom = "06a_chest_redroom" },
+   
+    --[[Isaac's Bedroom]] [49] = { doors = {"07_house_a"}, weights = {1}, redRoom = "07_house_redroom" },
+    --[[Hallway]] [50] = { doors = {"07_house_a"}, weights = {1}, redRoom = "tainted_closet" },
+    --[[Mom's Bedroom]] [51] = { doors = {"07_house_a"}, weights = {1}, redRoom = "07_house_redroom" },
+    --[[Closet #1]] [52] = { doors = {"07_house_a"}, weights = {1}, redRoom = "07_house_redroom" },
+    --[[Closet #2]] [53] = { doors = {"07a_darkhouse_a"}, weights = {1}, redRoom = "07a_darkhouse_redroom" },
+    --[[Closet #3]] [60] = { doors = {"07a_darkhouse_a"}, weights = {1}, redRoom = "07a_darkhouse_redroom" },
 }
 
---Same as normalRoomFilenames but for special rooms and indexed by roomType instead
-local roomFilenames = {
-    --[[Shop]] [2] = { default = "00_rd_shopdoor" },
-    --[[Shop (Tainted Keeper)]] [-2] = { default = "00_rd_shopdoor_t_keeper" },
-    --[[Treasure]] [4] = { default = "00_rd_treasuredoor", redRoom = "rd_treasuredoor_redroom" },
-    --[[Greed Treasure]] [-4] = { default = "00_rd_treasuredoor_greed" },
-    --[[Devil Treasure]] [-5] = { default = "00_rd_treasuredoor_devil" },
-    --[[Boss]] [5] = { default = "00_rd_bossdoor", anm2 = "rd_boss" },
-    --[[Arcade]] [9] = { default = "00_rd_arcade", anm2 = "rd_arcade" },
-    --[[Curse]] [10] = { default = "00_rd_cursedoor" },
-    --[[Curse No Spikes]] [-10] = { default = "00_rd_cursedoor_nospikes" },
-    --[[Challenge]] [11] = { default = "00_rd_challenge", redRoom = "rd_challenge_redroom"  },
-    --[[Boss Challenge]] [-11] = { default = "00_rd_challenge_boss", redRoom = "rd_challenge_redroom"  },
-    --[[Library]] [12] = { default = "00_rd_library" },
-    --[[Sacrifice]] [13] = { default = "00_rd_sacrifice", redRoom = "rd_sacrifice_redroom" },
-    --[[Devil]] [14] = { default = "00_rd_devil" },
-    --[[Angel]] [15] = { default = "00_rd_angel", anm2 = "rd_cathedral" },
-    --[[Bedroom]] [18] = { default = "00_rd_bedroom"},
-    --[[Barren]] [19] = { default = "00_rd_bedroom"},
-    --[[Chest]] [20] = { default = "00_rd_chest" },
-    --[[Dice]] [21] = { default = "00_rd_diceroom" },
-    --[[Black Market Exit]] [22] = { default = "00_rd_blackmarket_exit", anm2 = "rd_exit" },
-    --[[Greed Exit]] [23] = { default = "00_rd_greed_exit", anm2 = "rd_exit" },
-    --[[Planetarium]] [24] = { default = "00_rd_planetarium" },
-    --[[Blue Womb]] [28] = { default = "04x_rd_blue_a", variants = {"04x_rd_blue_a"}, allowFlip = true },
-    --[[Downpour Entrance]] [50] = { default = "00_rd_entrance_downpour", },
-    --[[Mines Entrance]] [51] = { default = "00_rd_entrance_mines" },
-    --[[Mausoleum Entrance]] [52] = { default = "00_rd_entrance_mausoleum", anm2 = "rd_entrance_mausoleum" },
-    --[[Corpse Entrance]] [53] = { default = "00_rd_entrance_corpse" },
-    --[[Mirror]] [54] = { default = "00_rd_mirror", anm2 = "00_rd_mirror" },
-    --[[Mineshaft Mines]] [55] = { default = "02c_rd_mines_a" },
-    --[[Mineshaft Ashpit]] [-55] = { default = "02d_rd_ashpit_a" },
-    --[[Ascent Entrance]] [56] = { default = "00_rd_shopdoor" },
+local specialDoorFilenames = {
+    --[[Shop]] [1] = { doors = {"00_shop"}, redRoom = "00_shop_redroom", allowFlip = false },
+    --[[Tainted Shop]] [2] = { doors = {"00_shop_tainted"}, redRoom = "00_shop_tainted_redroom", allowFlip = false },
+    --[[Treasure]] [3] = { doors = {"00_treasure"}, redRoom = "00_treasure_redroom", allowFlip = false },
+    --[[Devil Treasure]] [4] = { doors = {"00_treasure_devil"}, redRoom = "00_treasure_devil_redroom", allowFlip = false },
+    --[[Greed Treasure]] [5] = { doors = {"00_treasure_greed"}, redRoom = "00_treasure_greed_redroom", allowFlip = false },
+    --[[Boss]] [6] = { doors = {"00_boss"}, redRoom = "00_boss_redroom", anm2 = "boss", allowFlip = false },
+    --[[Arcade]] [7] = { doors = {"00_arcade"}, redRoom = "00_arcade_redroom", anm2 = "arcade", allowFlip = false },
+    --[[Curse]] [8] = { doors = {"00_curse"}, redRoom = "00_curse_redroom", allowFlip = false },
+    --[[Curse (No Spikes)]] [9] = { doors = {"00_curse_nospikes"}, redRoom = "00_curse_nospikes_redroom", allowFlip = false },
+    --[[Challenge]] [10] = { doors = {"00_challenge"}, redRoom = "00_challenge_redroom", allowFlip = false },
+    --[[Boss Challenge]] [11] = { doors = {"00_challenge_boss"}, redRoom = "00_boss_challenge_redroom", allowFlip = false },
+    --[[Library]] [12] = { doors = {"00_library"}, redRoom = "00_library_redroom", allowFlip = false },
+    --[[Sacrifice]] [13] = { doors = {"00_sacrifice"}, redRoom = "00_sacrifice_redroom", allowFlip = false },
+    --[[Devil]] [14] = { doors = {"00_devil"}, redRoom = "00_devil_redroom", allowFlip = false },
+    --[[Angel]] [15] = { doors = {"00_angel"}, redRoom = "00_angel_redroom", anm2 = "cathedral", allowFlip = false },
+    --[[Bedroom]] [16] = { doors = {"00_bedroom"}, redRoom = "00_bedroom_redroom", allowFlip = false },
+    --[[Bedroom (Barren)]] [17] = { doors = {"00_bedroom"}, redRoom = "00_bedroom_redroom", allowFlip = false },
+    --[[Chest]] [18] = { doors = {"00_chest"}, redRoom = "00_chest_redroom", allowFlip = false },
+    --[[Dice]] [19] = { doors = {"00_dice"}, redRoom = "00_dice_redroom", allowFlip = false },
+    --[[Black Market]] [20] = { doors = {"00_blackmarket"}, redRoom = "00_blackmarket_redroom", anm2 = "exit", allowFlip = false },
+    --[[Planetarium]] [21] = { doors = {"00_planetarium"}, redroom = "00_planetarium_redroom", allowFlip = false },
 }
 
---Determines what door should be shown
-local function getDoorInfo(indexedDoor, currentRoom, currentRoomFlags, targetRoomFlags, settings)
+local storyDoorFilenames = {
+    --[[Greed Exit]] [1] = { doors = {"00_greed_exit"}, anm2 = "exit", allowFlip = false },
+    --[[Downpour Entrance]] [2] = { doors = {"00_downpour_entrance"}, allowFlip = false },
+    --[[Mines Entrance]] [3] = { doors = {"00_mines_entrance"}, allowFlip = false },
+    --[[Mausoleum Entrance]] [4] = { doors = {"00_mausoleum_entrance"}, anm2 = "entrance_mausoleum", allowFlip = false },
+    --[[Corpse Entrance]] [5] = { doors = {"00_corpse_entrance"}, allowFlip = false },
+    --[[Mirror]] [6] = { doors = {"00_mirror"}, anm2 = "mirror", allowFlip = false },
+    --[[Mineshaft Mines]] [7] = { doors = {"02c_mines_a"}, weights = {1} },
+    --[[Mineshaft Ashpit]] [8] = { doors = {"02d_ashpit_a"}, weights = {1} },
+}
 
-    --Gets the current roomtype of the current room you're in and the target room of the door
-    local current = indexedDoor.CurrentRoomType
-    local target = indexedDoor.TargetRoomType
+--Check if a set of provided room flags has a certain flag
+local function hasFlag(roomFlags, flag)
+    return roomFlags & flag ~= 0
+end
+
+--Determines what the current door should be replaced with
+local function getDoorInfo(indexedDoor, currentRoom, settings)
+
+    local currentType = indexedDoor.CurrentRoomType
+    local targetType = indexedDoor.TargetRoomType
+    local currentRoomFlags = Game():GetLevel():GetCurrentRoomDesc().Flags
+    local targetRoomFlags = Game():GetLevel():GetRoomByIdx(indexedDoor.TargetRoomIndex).Flags
+
     local stageEnum = Game():GetLevel():GetStage()
+    local backdropEnum = currentRoom:GetBackdropType()
 
     local doorTable = nil
- 
-    --This next section prioritizes showing some rooms over others, such as special rooms or curse doors
+    local doorIndex = nil
+    local doorType = 0
 
-    --Normal Rooms
-    if (current == 1 or current == 6) and (target == 1 or target == 6) and indexedDoor.TargetRoomIndex ~= -100 and indexedDoor.TargetRoomIndex ~= -101 then                                                                         
-        if settings.normalDoors == false or settings.normalTable[tostring(currentRoom:GetBackdropType())] == "Off" then return nil end 
+    --Normal Doors
+    if settings.normalDoors then
 
-        doorTable = normalRoomFilenames[currentRoom:GetBackdropType()]
-
-    --Special Rooms
-    elseif settings.specialDoors == false then return nil end
-
-    --Alt Path Entrances and Story doors
-    --Ascent Entrance
-    if indexedDoor.TargetRoomIndex == -10 and Game():GetLevel():GetCurrentRoomIndex() == 84 and stageEnum == 6 then
-        return nil
-
-    --Downpour Entrance
-    elseif (current == 27 or target == 27) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 1 or stageEnum == 2) and settings.specialTable["50"] == true then
-        doorTable = roomFilenames[50]
-
-    --Mineshaft Entrance
-    elseif (current == 27 or target == 27) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 3 or stageEnum == 4) and settings.specialTable["51"] == true then
-        doorTable = roomFilenames[51]
-
-    --Mausoleum Entrance
-    elseif (current == 27 or target == 27) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 5 or stageEnum == 6) and settings.specialTable["52"] == true then
-        doorTable = roomFilenames[52]
-
-    --Corpse Entrance (Outside)
-    elseif (target == 5) and indexedDoor.TargetRoomIndex == -10 and (stageEnum == 5 or stageEnum == 6) and settings.specialTable["53"] == true then
-        doorTable = roomFilenames[53]
-
-    --Corpse Entrance (Inside)
-    elseif (current == 5) and currentRoom:GetBackdropType() == 10 and (stageEnum == 5 or stageEnum == 6) and settings.specialTable["53"] == true then
-        doorTable = roomFilenames[53]
-
-    --Mirror
-    elseif indexedDoor.TargetRoomIndex == -100 and settings.specialTable["54"] then
-        doorTable = roomFilenames[54]
-
-    --Mineshaft
-    elseif indexedDoor.TargetRoomIndex == -101 and settings.specialTable["55"] == true then
-        --Mines
-        doorTable = roomFilenames[55]
-
-        --Ashpit
-        if currentRoom:GetBackdropType() == 46 or currentRoom:GetBackdropType() == 59 then 
-            doorTable = roomFilenames[-55]
+        --Normal
+        if currentType == RoomType.ROOM_DEFAULT or targetType == RoomType.ROOM_DEFAULT then
+            doorIndex = backdropEnum
+            doorType = 1
         end
 
-    --Secret
-    elseif (current == 7 or target == 7) or (current == 8 or target == 8) or (current == 29 or target == 29) then 
-        return nil
+        --Miniboss 
+        if currentType == RoomType.ROOM_MINIBOSS or targetType == RoomType.ROOM_MINIBOSS then
+            doorIndex = backdropEnum
+            doorType = 1
+        end
+
+        --Error
+        if currentType == RoomType.ROOM_ERROR or targetType == RoomType.ROOM_ERROR then
+            doorIndex = backdropEnum
+            doorType = 1
+        end
+    end
+    
+    --Special Doors
+    if settings.specialDoors then
+
+        --Secret
+        if currentType == RoomType.ROOM_SECRET or currentType == RoomType.ROOM_SUPERSECRET or currentType == RoomType.ROOM_ULTRASECRET or targetType == RoomType.ROOM_SECRET or targetType == RoomType.ROOM_SUPERSECRET or targetType == RoomType.ROOM_ULTRASECRET then return end
+
+        --[[Black Market]] 
+        if currentType == RoomType.ROOM_BLACK_MARKET or targetType == RoomType.ROOM_BLACK_MARKET then
+            doorType = 2
+            doorIndex = 20
+        end
+
+        --Bedroom
+        if currentType == RoomType.ROOM_ISAACS or targetType == RoomType.ROOM_ISAACS then
+            doorType = 2
+            doorIndex = 16
+        end
+
+        --Bedroom (Barren)
+        if currentType == RoomType.ROOM_BARREN or targetType == RoomType.ROOM_BARREN then
+            doorType = 2
+            doorIndex = 17
+        end
+
+        --Chest
+        if currentType == RoomType.ROOM_CHEST or targetType == RoomType.ROOM_CHEST then
+            doorType = 2
+            doorIndex = 18
+        end
+
+        --Library
+        if currentType == RoomType.ROOM_LIBRARY or targetType == RoomType.ROOM_LIBRARY then
+            doorType = 2
+            doorIndex = 12
+        end
+
+        --Arcade
+        if currentType == RoomType.ROOM_ARCADE or targetType == RoomType.ROOM_ARCADE then
+            doorType = 2
+            doorIndex = 7
+        end
+
+        --Sacrifice
+        if currentType == RoomType.ROOM_SACRIFICE or targetType == RoomType.ROOM_SACRIFICE then
+            doorType = 2
+            doorIndex = 13
+        end
+
+        --Dice 
+        if currentType == RoomType.ROOM_DICE or targetType == RoomType.ROOM_DICE then
+            doorType = 2
+            doorIndex = 19
+        end
+
+        --Shop
+        if currentType == RoomType.ROOM_SHOP or targetType == RoomType.ROOM_SHOP then
+            doorType = 2
+            doorIndex = 1
+
+            --Tainted Shop
+            for x = 0, Game():GetNumPlayers() - 1, 1 do
+                if Game():GetPlayer(x):GetPlayerType() == PlayerType.PLAYER_KEEPER_B then 
+                    doorIndex = 2
+                    break
+                end
+            end
+        end
+
+        --Treasure
+        if currentType == RoomType.ROOM_TREASURE or targetType == RoomType.ROOM_TREASURE then
+            doorType = 2
+            doorIndex = 3
+
+            --Devil Treasure
+            if hasFlag(currentRoomFlags, RoomDescriptor.FLAG_DEVIL_TREASURE) or hasFlag(targetRoomFlags, RoomDescriptor.FLAG_DEVIL_TREASURE) then
+                doorIndex = 4
+            end
+
+            --Greed Treasure
+            if Game():IsGreedMode() and (indexedDoor.Slot == 6 or (indexedDoor.Slot == 0 and Game():GetLevel():GetCurrentRoomIndex() == 98)) then
+                doorIndex = 5
+            end
+        end
+
+        --Planetarium
+        if currentType == RoomType.ROOM_PLANETARIUM or targetType == RoomType.ROOM_PLANETARIUM then
+            doorType = 2
+            doorIndex = 21
+        end
+
+        --Angel
+        if currentType == RoomType.ROOM_ANGEL or targetType == RoomType.ROOM_ANGEL then
+            doorType = 2
+            doorIndex = 15
+        end
+
+        --Devil
+        if currentType == RoomType.ROOM_DEVIL or targetType == RoomType.ROOM_DEVIL then
+            doorType = 2
+            doorIndex = 14
+        end
+
+        --Challenge
+        if currentType == RoomType.ROOM_CHALLENGE or targetType == RoomType.ROOM_CHALLENGE then
+            doorType = 2
+            doorIndex = 10
+
+            --Boss Challenge
+            if stageEnum == 2 or stageEnum == 4 or stageEnum == 6 or stageEnum == 8 then
+                doorIndex = 11
+            end
+        end
+
+        --Curse
+        if currentType == RoomType.ROOM_CURSE or targetType == RoomType.ROOM_CURSE then
+            doorType = 2
+            doorIndex = 8
+
+            --Curse (No Spikes)
+            for x = 0, Game():GetNumPlayers()-1, 1 do
+                if Game():GetPlayer(x):HasTrinket(TrinketType.TRINKET_FLAT_FILE) then
+                    doorIndex = 9
+                    break
+                end
+            end
+        end
+
+        --Boss
+        if currentType == RoomType.ROOM_BOSS or targetType == RoomType.ROOM_BOSS then
+            doorType = 2
+            doorIndex = 6
+
+            --Boss Rush
+            if indexedDoor.TargetRoomIndex == GridRooms.ROOM_BOSSRUSH_IDX then return end
+
+            --Hush
+            if indexedDoor.TargetRoomIndex == GridRooms.ROOM_BLUE_WOOM_IDX or stageEnum == 9 then return end
+
+            --Mega Satan
+            if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MEGA_SATAN_IDX then return end
+        end
+
+    end
+
+    --Story Doors
+    if settings.storyDoors then
+
+        --Greed Exit
+        if currentType == RoomType.ROOM_GREED_EXIT or targetType == RoomType.ROOM_GREED_EXIT then
+            doorType = 3
+            doorIndex = 1
+        end
+
+        --Downpour Entrance
+        if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 1 or stageEnum == 2) then
+            doorType = 3
+            doorIndex = 2
+        end
+
+        --Mines Entrance
+        if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 3 or stageEnum == 4) then
+            doorType = 3
+            doorIndex = 3
+        end
+
+        --Mausoleum Entrance
+        if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 5 or stageEnum == 6) then
+            doorType = 3
+            doorIndex = 4
+        end
+
+        ---------------------------------_TEMPORRAY FIXXX THIS------------------------------------------------------
+
+        --Corpse Entrance
+        if (target == RoomType.ROOM_BOSS) and GridRooms.ROOM_SECRET_EXIT_IDX and (stageEnum == 5 or stageEnum == 6) then
+            doorType = 3
+            doorIndex = 5
+        end
+
+        --Corpse Entrance
+        if (current == RoomType.ROOM_BOSS) and backdropEnum == 10 and (stageEnum == 5 or stageEnum == 6) then
+            doorType = 3
+            doorIndex = 5
+        end
+
+        -------------------------------------------QUARINTINE-----------------------------------------------------
+
+        --Mirror
+        if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MIRROR_IDX then
+            doorType = 3
+            doorIndex = 6
+        end
+
+        --Mineshaft Mines
+        if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MINESHAFT_IDX and (backdropEnum == BackdropType.MINES or backdropEnum == BackdropType.MINES_SHAFT) then
+            doorType = 3
+            doorIndex = 7
+        end
+
+        --Mineshaft Ashpit
+        if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MINESHAFT_IDX and (backdropEnum == BackdropType.ASHPIT or backdropEnum == BackdropType.ASHPIT_SHAFT) then
+            doorType = 3
+            doorIndex = 8
+        end
+    end
+
+    --Get the table with the doors info. Return blank if none was ever found or its toggled off in the settings
+    if doorType == 0 then return
+
+    elseif doorType == 1 then
+        if settings.normalDoorTable[doorIndex] == 3 then return end
+
+        doorTable = normalDoorFilenames[doorIndex]
+
+    elseif doorType == 2 then
+        if settings.specialDoorTable[doorIndex] == false then return end
+
+        doorTable = specialDoorFilenames[doorIndex]
+
+    elseif doorType == 3 then
+        if settings.storyDoorTable[doorIndex] == false then return end
+
+        doorTable = storyDoorFilenames[doorIndex]
+    end
+
+    --Set the defaults of missing values in the tables
+    if type(doorTable) ~= "table" then return end
+    if type(doorTable.doors) ~= "table" then doorTable.doors = {"normaldoor"} end
+    if type(doorTable.weights) ~= "table" then doorTable.weights = {} end
+    for key, value in pairs(doorTable.doors) do
+        if type(doorTable.weights[key]) ~= "number" then
+            doorTable.weights[key] = 1
+        end
+    end
+    if type(doorTable.redRoom) ~= "string" then doorTable.redRoom = "normaldoor_redroom" end
+    if type(doorTable.anm2) ~= "string" then doorTable.anm2 = "default" end
+    if type(doorTable.allowFlip) ~= "boolean" then doorTable.allowFlip = true end
+
+    --The final file the door will end up being
+    local doorFile = doorTable.doors[1]
+
+    --Choose the door variant based on a random value and variant weights
+    if settings.variants and (doorType ~= 1 or settings.normalDoorTable[doorIndex] == 1) then
+        local weightMax = 0
+        for key, value in pairs(doorTable.weights) do 
+            weightMax = weightMax + value 
+        end
         
-    --Curse Rooms
-    elseif (current == 10 or target == 10) and settings.specialTable["10"] == true then                                                                      
-        doorTable = roomFilenames[10]
-
-        for i = 0, Game():GetNumPlayers()-1, 1 do
-            if Game():GetPlayer(i):HasTrinket(TrinketType.TRINKET_FLAT_FILE) then
-                doorTable = roomFilenames[-10]
-                break
-            end
-        end
-
-    --Boss Rooms
-    elseif (current == 5 or target == 5) and settings.specialTable["5"] == true then                                                                      
-        doorTable = roomFilenames[5]
-
-        --Boss Rush
-        if indexedDoor.TargetRoomIndex == -5 then
-            return nil
-        end
-
-        --Hush
-        if indexedDoor.TargetRoomIndex == -8 or stageEnum == 9 then
-            return nil
-        end
-
-        --Mega Satan
-        if indexedDoor.TargetRoomIndex == -7 then
-            return nil
-        end
-
-    --Challenge and Boss Challenge     
-    elseif (current == 11 or target == 11) and settings.specialTable["11"] == true then
-        doorTable = roomFilenames[11]
-
-        if stageEnum == 2 or stageEnum == 4 or stageEnum == 6 or stageEnum == 8 then
-            doorTable = roomFilenames[-11]
-        end
-
-    --Treasure Rooms
-    elseif (current == 4 or target == 4) and settings.specialTable["4"] == true then   
-        doorTable = roomFilenames[4]                                                      
-
-        --Greed Boss Treasure Rooms
-        if Game():IsGreedMode() and (indexedDoor.Slot == 6 or (Game():GetLevel():GetCurrentRoomIndex() == 98 and indexedDoor.Slot == 0)) then
-            doorTable = roomFilenames[-4]
-
-        --Devil Treasure Rooms
-        elseif currentRoomFlags>>11 == 1 or targetRoomFlags>>11 == 1 then
-            doorTable = roomFilenames[-5]
-        end   
-
-    --Shops
-    elseif (current == 2 or target == 2) and settings.specialTable["2"] == true then   
-        doorTable = roomFilenames[2]                                                      
-
-        --Tainted Keeper
-        local numPlayers = Game():GetNumPlayers()
-        for x = 0, numPlayers - 1, 1 do
-            if Game():GetPlayer(x):GetPlayerType() == 33 then 
-                doorTable = roomFilenames[-2]
-                break
-            end
-        end
-
-    --All Other Special Rooms
-    else                                                                                                                                           
-        if target ~= 1 then 
-            if settings.specialTable[tostring(target)] == true then doorTable = roomFilenames[target] end
-        else 
-            if settings.specialTable[tostring(current)] == true then doorTable = roomFilenames[current] end
-        end
-    end
-
-    --Set defaults for missing parts of the table
-    if doorTable == nil then return nil end
-
-    if doorTable.default == nil then doorTable.default = "rd_normaldoor" end
-    if doorTable.variants == nil then doorTable.variants = {doorTable.default} end
-    if doorTable.redRoom == nil then doorTable.redRoom = doorTable.default end
-    if doorTable.anm2 == nil then doorTable.anm2 = "rd_default" end
-    if doorTable.allowFlip == nil then doorTable.allowFlip = false end
-
-    --Variants
-    local doorFile = doorTable.default
-    if settings.variants == true and settings.normalTable[tostring(currentRoom:GetBackdropType())] == "On" then                                                                    
+        --Set the seed based on the decoration seed and door slot so that doors will stay consistent when reentering a room
         math.randomseed(currentRoom:GetDecorationSeed() + indexedDoor.Slot)
-        doorFile = doorTable.variants[math.random(#doorTable.variants)]
+        local doorValue = math.random() * weightMax
+
+        for key, value in pairs(doorTable.weights) do
+            doorValue = doorValue - value
+            if doorValue <= 0 then
+                doorFile = doorTable.doors[key]
+                break
+            end
+        end
     end
 
-    --Randomly Flip Doors
-    if settings.variants == true  and settings.flipping == true and doorTable.allowFlip == true then                                                  
-        local willFlip = math.random(0, 1)
-        if ((indexedDoor:GetSprite().Rotation / 90) % 2) == 0 and willFlip == 1 then indexedDoor:GetSprite().FlipX = true end
-        if ((indexedDoor:GetSprite().Rotation / 90) % 2) == 1 and willFlip == 1 then indexedDoor:GetSprite().FlipY = true end
+    --Flipping doors randomly 50/50 and deciding what axis they're flipped on
+    if settings.variants and settings.flipping and doorTable.allowFlip == true then
+        --Set the seed based on the decoration seed and door slot so that doors will stay consistent when reentering a room
+        math.randomseed(currentRoom:GetDecorationSeed() + indexedDoor.Slot)
+        if math.random(0, 1) == 1 then
+            if (indexedDoor:GetSprite().Rotation / 90) % 2 == 0 then indexedDoor:GetSprite().FlipX = true end
+            if (indexedDoor:GetSprite().Rotation / 90) % 2 == 1 then indexedDoor:GetSprite().FlipY = true end
+        end
     end
 
     --For doors that LEAD INTO a red room, as doors inside of a red room already inherit the wall color
-    if ((targetRoomFlags & RoomDescriptor.FLAG_RED_ROOM) ~= 0) and not ((currentRoomFlags & RoomDescriptor.FLAG_RED_ROOM) ~= 0) then
+    if not hasFlag(currentRoomFlags, RoomDescriptor.FLAG_RED_ROOM) and hasFlag(targetRoomFlags, RoomDescriptor.FLAG_RED_ROOM) then
         doorFile = "Red Rooms/" .. doorTable.redRoom
     end
 
-
     return {file = doorFile, anm2 = doorTable.anm2}
 end
-
 
 
 --The actual code that goes through, checks, and replaces each door
 return function(settings)
     local currentRoom = Game():GetRoom()
 
-    --Loop through all door slots and check for a door. If so, get new file and replace
+    --Loop through all door slots and check for a door. If so, get the new file and replace
     for x = 0, 7, 1 do
         local indexedDoor = currentRoom:GetDoor(x)
         if indexedDoor == nil then goto loopSkip end
 
         local doorSprite = indexedDoor:GetSprite()
-        local currentAnim = doorSprite:GetAnimation()
         local currentFrame = doorSprite:GetFrame()
+        local currentAnim = doorSprite:GetAnimation()
 
-        local currentRoomFlags = Game():GetLevel():GetCurrentRoomDesc().Flags
-        local targetRoomFlags = Game():GetLevel():GetRoomByIdx(indexedDoor.TargetRoomIndex).Flags
-
-        local doorInfo = getDoorInfo(indexedDoor, currentRoom, currentRoomFlags, targetRoomFlags, settings);
+        local doorInfo = getDoorInfo(indexedDoor, currentRoom, settings);
         if doorInfo == nil then goto loopSkip end
 
-        if doorInfo.anm2 ~= nil then doorSprite:Load("gfx/grid/" .. doorInfo.anm2 .. ".anm2", false) end
+        if not doorInfo.anm2 ~= nil then doorSprite:Load("gfx/grid/" .. doorInfo.anm2 .. ".anm2", false) end
 
         --Replace all layers of the spritesheet
         for y = 0, doorSprite:GetLayerCount()-1, 1 do
@@ -274,7 +427,6 @@ return function(settings)
 
         doorSprite:Play(currentAnim)
         doorSprite:SetFrame(currentFrame)
-        doorSprite:Play(currentAnim)
 
         doorSprite:LoadGraphics()
 
