@@ -1,4 +1,4 @@
---Aaron
+--AaronRuinsLives
 local json = require("json")
 DoorOverhaul = RegisterMod("Door Overhaul", 1)
 

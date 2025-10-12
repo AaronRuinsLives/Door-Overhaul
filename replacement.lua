@@ -1,3 +1,4 @@
+--AaronRuinsLives
 local normalDoorFilenames = {
     --[[Default]] [0] = { doors = {"normaldoor"}, weights = {1}, redRoom = "normaldoor_redroom" },
 
