@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
     <name>Door Overhaul</name>
-    <directory>aarons: door overhaul</directory>
+    <directory>aarons door overhaul</directory>
     <id>3585879877</id>
-    <description>[h1] Door Overhaul is:[/h1]
+    <description>[h1][b]Door Overhaul is:[/b][/h1]
 Door overhaul is a mod that I made because I thought the doors in Isaac were kinda ugly sometimes. This mod resprites almost every single door with a completely new look and new features too! Doors come with variants and improved animations, along with some custom ones. It also adds completely new doors, with Tainted Keeper getting his own shop door! It does do more like handlng edge cases with red rooms better but thats stuff most people wont even notice.
 
-[h2]Door Overhaul can't:[/h2]
+[h2][b]Door Overhaul can't:[/b][/h2]
 Because of some of the limitations and jankiness of Isaac, there are some doors I just straight up can't replace. These include:
 [list]
 [*]Mega Satan Door
@@ -15,20 +15,26 @@ Because of some of the limitations and jankiness of Isaac, there are some doors 
 [/list]
 These can't be replaced because its either not possible or the doors completely break and cannot be entered when replaced.
 
-[h2]Door Overhaul thanks:[/h2]
+[h2][b]Door Overhaul thanks:[/b][/h2]
 The members over at the Modding of Isaac discord who helped playtest the mod and find bugs. They are:
 [list]
-[*]guy here
+[*]vinnyp316 (@vinnyp316)
+[*]Mama Liz's Chili Oil (@kars_on_mars)
+[*]noct (@nocturnii)
+[*]Bryon Love (@bryonlove9)
+[*]Elekktrogamer (@elektrogamer)
+[*]Adam (@adam_hrm)
 [/list]
+And viewers like you
 
-[h2]Other[/h2]
-You can also go over to my github and download the mod from over there. I allow you to reuse parts of the mods code for your own mods, as long as you follow the rules listed over on the read me file.
+[h2][b]Other[/b][/h2]
+You can also go over to my Github and download the mod from over there. I allow you to reuse parts of the mods code for your own mods, as long as you follow the rules listed over on the read me file.
 
-https://github.com/AaronRuinsLives/Door-Overhaul
+[b][i]https://github.com/AaronRuinsLives/Door-Overhaul[/i][/b]
 
 </description>
-    <version>1.1</version>
-    <visibility>Private</visibility>
+    <version>1.3</version>
+    <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Rooms"/>
     <tag id="Tweaks"/>

@@ -72,10 +72,10 @@ local specialDoorFilenames = {
 
 local storyDoorFilenames = {
     --[[Greed Exit]] [1] = { doors = {"00_greed_exit"}, anm2 = "exit", allowFlip = false },
-    --[[Downpour Entrance]] [2] = { doors = {"00_downpour_entrance"}, allowFlip = false },
-    --[[Mines Entrance]] [3] = { doors = {"00_mines_entrance"}, allowFlip = false },
-    --[[Mausoleum Entrance]] [4] = { doors = {"00_mausoleum_entrance"}, anm2 = "entrance_mausoleum", allowFlip = false },
-    --[[Corpse Entrance]] [5] = { doors = {"00_corpse_entrance"}, allowFlip = false },
+    --[[Downpour Entrance]] [2] = { doors = {"00_entrance_downpour"}, allowFlip = false },
+    --[[Mines Entrance]] [3] = { doors = {"00_entrance_mines"}, allowFlip = false },
+    --[[Mausoleum Entrance]] [4] = { doors = {"00_entrance_mausoleum"}, anm2 = "entrance_mausoleum", allowFlip = false },
+    --[[Corpse Entrance]] [5] = { doors = {"00_entrance_corpse"}, allowFlip = false },
     --[[Mirror]] [6] = { doors = {"00_mirror"}, anm2 = "mirror", allowFlip = false },
     --[[Mineshaft Mines]] [7] = { doors = {"02c_mines_a"}, weights = {1} },
     --[[Mineshaft Ashpit]] [8] = { doors = {"02d_ashpit_a"}, weights = {1} },
@@ -110,7 +110,7 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
             doorType = 1
         end
 
-        --Miniboss 
+        --Miniboss
         if currentType == RoomType.ROOM_MINIBOSS or targetType == RoomType.ROOM_MINIBOSS then
             doorIndex = backdropEnum
             doorType = 1
@@ -128,8 +128,17 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
 
         --Secret
         if currentType == RoomType.ROOM_SECRET or currentType == RoomType.ROOM_SUPERSECRET or currentType == RoomType.ROOM_ULTRASECRET or targetType == RoomType.ROOM_SECRET or targetType == RoomType.ROOM_SUPERSECRET or targetType == RoomType.ROOM_ULTRASECRET then return end
+        
+        --Boss Rush
+        if currentType == RoomType.ROOM_BOSSRUSH or targetType == RoomType.ROOM_BOSSRUSH then return end
 
-        --[[Black Market]] 
+        --Hush
+        if indexedDoor.CurrentRoomIndex == GridRooms.ROOM_BLUE_WOOM_IDX or indexedDoor.TargetRoomIndex == GridRooms.ROOM_BLUE_WOOM_IDX or stageEnum == 9 then return end
+
+        --Mega Satan
+        if indexedDoor.CurrentRoomIndex == GridRooms.ROOM_MEGA_SATAN_IDX or indexedDoor.TargetRoomIndex == GridRooms.ROOM_MEGA_SATAN_IDX then return end
+
+        --Black Market
         if currentType == RoomType.ROOM_BLACK_MARKET or targetType == RoomType.ROOM_BLACK_MARKET then
             doorType = 2
             doorIndex = 20
@@ -254,15 +263,6 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
         if currentType == RoomType.ROOM_BOSS or targetType == RoomType.ROOM_BOSS then
             doorType = 2
             doorIndex = 6
-
-            --Boss Rush
-            if indexedDoor.TargetRoomIndex == GridRooms.ROOM_BOSSRUSH_IDX then return end
-
-            --Hush
-            if indexedDoor.TargetRoomIndex == GridRooms.ROOM_BLUE_WOOM_IDX or stageEnum == 9 then return end
-
-            --Mega Satan
-            if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MEGA_SATAN_IDX then return end
         end
 
     end
@@ -297,15 +297,17 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
         ---------------------------------_TEMPORRAY FIXXX THIS------------------------------------------------------
 
         --Corpse Entrance
-        if (target == RoomType.ROOM_BOSS) and GridRooms.ROOM_SECRET_EXIT_IDX and (stageEnum == 5 or stageEnum == 6) then
+        if target == RoomType.ROOM_BOSS and indexedDoor.TargetRoomIndex == GridRooms.ROOM_SECRET_EXIT_IDX and (stageEnum == 5 or stageEnum == 6) then
             doorType = 3
             doorIndex = 5
+            print("Corpse door")
         end
 
         --Corpse Entrance
-        if (current == RoomType.ROOM_BOSS) and backdropEnum == 10 and (stageEnum == 5 or stageEnum == 6) then
+        if current == RoomType.ROOM_BOSS and backdropEnum == BackdropType.WOMB and (stageEnum == 5 or stageEnum == 6) then
             doorType = 3
             doorIndex = 5
+            print("Corpse door")
         end
 
         -------------------------------------------QUARINTINE-----------------------------------------------------
