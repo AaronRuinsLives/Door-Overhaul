@@ -3,13 +3,13 @@ local normalDoorFilenames = {
     --[[Default]] [0] = { doors = {"normaldoor"}, weights = {1}, redRoom = "normaldoor_redroom" },
 
     --[[Basement]] [1] = { doors = {"01_basement_a", "01_basement_b"}, weights = {1, 1}, redRoom = "01_basement_redroom" },
-    --[[Cellar]] [2] = { doors = {"01a_cellar_a", "01a_cellar_b"}, weights = {1, 0.75}, redRoom = "01a_cellar_redroom" },
+    --[[Cellar]] [2] = { doors = {"01a_cellar_a", "01a_cellar_b"}, weights = {1, 0.5}, redRoom = "01a_cellar_redroom" },
     --[[Burning Basement]] [3] = { doors = {"01b_burning_a", "01b_burning_b", "01b_burning_c", "01b_burning_d"}, weights = {1, 1, 0.75, 0.75}, redRoom = "01b_burning_redroom" },
     --[[Downpour]] [31] = { doors = {"01c_downpour_a"}, weights = {1}, redRoom = "01c_downpour_redroom" },
     --[[Dross]] [45] = { doors = {"01d_dross_a", "01d_dross_b"}, weights = {1, 1}, redRoom = "01d_dross_redroom" },
 
     --[[Caves]] [4] = { doors = {"02_caves_a", "02_caves_b"}, weights = {1, 0.25}, redRoom = "02_caves_redroom" },
-    --[[Catacombs]] [5] = { doors = {"02a_catacombs_a", "02a_catacombs_b"}, weights = {1, 1}, redRoom = "02a_catacombs_redroom" }, 
+    --[[Catacombs]] [5] = { doors = {"02a_catacombs_a"}, weights = {1}, redRoom = "02a_catacombs_redroom" }, 
     --[[Flooded Caves]] [6] = { doors = {"02b_flooded_a"}, weights = {1}, redRoom = "02b_flooded_redroom" },
     --[[Mines]] [32] = { doors = {"02c_mines_a"}, weights = {1}, redRoom = "02c_mines_redroom" },
     --[[Mines Shaft]] [58] = { doors = {"02c_mines_a"}, weights = {1}, redRoom = "02c_mines_redroom" }, 
@@ -19,10 +19,10 @@ local normalDoorFilenames = {
     --[[Depths]] [7] = { doors = {"03_depths_a"}, weights = {1}, redRoom = "03_depths_redroom" },
     --[[Necropolis]] [8] = { doors = {"03a_necropolis_a"}, weights = {1}, redRoom = "03a_necropolis_redroom" },
     --[[Dank Depths]] [9] = { doors = {"03b_dank_a"}, weights = {1}, redRoom = "03b_dank_redroom" },
-    --[[Mausoleum #1]] [33] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b", "03c_mausoleum_c"}, weights = {1, 1, 0.75}, redRoom = "03c_mausoleum_redroom" },
-    --[[Mausoleum #2]] [40] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b", "03c_mausoleum_c"}, weights = {1, 1, 0.75}, redRoom = "03c_mausoleum_redroom" },
-    --[[Mausoleum #3]] [41] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b", "03c_mausoleum_c"}, weights = {1, 1, 0.75}, redRoom = "03c_mausoleum_redroom" },
-    --[[Mausoleum #4]] [42] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b", "03c_mausoleum_c"}, weights = {1, 1, 0.75}, redRoom = "03c_mausoleum_redroom" },
+    --[[Mausoleum #1]] [33] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b"}, weights = {1, 0.5}, redRoom = "03c_mausoleum_redroom" },
+    --[[Mausoleum #2]] [40] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b"}, weights = {1, 0.5}, redRoom = "03c_mausoleum_redroom" },
+    --[[Mausoleum #3]] [41] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b"}, weights = {1, 0.5}, redRoom = "03c_mausoleum_redroom" },
+    --[[Mausoleum #4]] [42] = { doors = {"03c_mausoleum_a", "03c_mausoleum_b"}, weights = {1, 0.5}, redRoom = "03c_mausoleum_redroom" },
     --[[Gehenna]] [47] = { doors = {"03d_gehenna_a"}, weights = {1}, redRoom = "03d_gehenna_redroom" },
    
     --[[Womb]] [10] = { doors = {"04_womb_a"}, weights = {1}, redRoom = "04_womb_redroom" },
@@ -294,23 +294,17 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
             doorIndex = 4
         end
 
-        ---------------------------------_TEMPORRAY FIXXX THIS------------------------------------------------------
-
-        --Corpse Entrance
-        if target == RoomType.ROOM_BOSS and indexedDoor.TargetRoomIndex == GridRooms.ROOM_SECRET_EXIT_IDX and (stageEnum == 5 or stageEnum == 6) then
+        --Corpse Entrance (Outside)
+        if targetType == RoomType.ROOM_BOSS and indexedDoor.TargetRoomIndex == GridRooms.ROOM_SECRET_EXIT_IDX and (stageEnum == 5 or stageEnum == 6) then
             doorType = 3
             doorIndex = 5
-            print("Corpse door")
         end
 
-        --Corpse Entrance
-        if current == RoomType.ROOM_BOSS and backdropEnum == BackdropType.WOMB and (stageEnum == 5 or stageEnum == 6) then
+        --Corpse Entrance (Inside)
+        if currentType == RoomType.ROOM_BOSS and backdropEnum == BackdropType.WOMB and (stageEnum == 5 or stageEnum == 6) then
             doorType = 3
             doorIndex = 5
-            print("Corpse door")
         end
-
-        -------------------------------------------QUARINTINE-----------------------------------------------------
 
         --Mirror
         if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MIRROR_IDX then
