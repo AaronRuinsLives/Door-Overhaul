@@ -3,7 +3,8 @@
     <name>Door Overhaul</name>
     <directory>aarons door overhaul</directory>
     <id>3585879877</id>
-    <description>[h1][b]Door Overhaul is:[/b][/h1]
+    <description>[i](Compatible with Repentence+)[/i]
+[h1][b]Door Overhaul is:[/b][/h1]
 Door overhaul is a mod that I made because I thought the doors in Isaac were kinda ugly sometimes. This mod resprites almost every single door with a completely new look and new features too! Doors come with variants and improved animations, along with some custom ones. It also adds completely new doors, with Tainted Keeper getting his own shop door! It does do more like handlng edge cases with red rooms better but thats stuff most people wont even notice.
 
 [h2][b]Door Overhaul can't:[/b][/h2]
@@ -33,7 +34,7 @@ You can also go over to my Github and download the mod from over there. I allow 
 [b][i]https://github.com/AaronRuinsLives/Door-Overhaul[/i][/b]
 
 </description>
-    <version>1.4</version>
+    <version>1.9</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Rooms"/>

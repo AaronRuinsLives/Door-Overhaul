@@ -414,5 +414,5 @@ end
 
 --Add the door replacement function to the callbacks
 local replaceDoors = require("replacement")
-DoorOverhaul:AddCallback(ModCallbacks.MC_POST_RENDER, function() replaceDoors(settings) end)
+DoorOverhaul:AddCallback(ModCallbacks.MC_POST_UPDATE, function() replaceDoors(settings) end)
 DoorOverhaul:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function() replaceDoors(settings) end)
