@@ -5,7 +5,7 @@ local normalDoorFilenames = {
     --[[Basement]] [1] = { doors = {"01_basement_a.png", "01_basement_b.png"}, weights = {1, 1}, redRoom = "Reds/01_basement_redroom.png" },
     --[[Cellar]] [2] = { doors = {"01a_cellar_a.png", "01a_cellar_b.png"}, weights = {1, 0.5}, redRoom = "Reds/01a_cellar_redroom.png" },
     --[[Burning Basement]] [3] = { doors = {"01b_burning_a.png", "01b_burning_b.png", "01b_burning_c.png", "01b_burning_d.png"}, weights = {1, 1, 0.75, 0.75}, redRoom = "Reds/01b_burning_redroom.png" },
-    --[[Downpour]] [31] = { doors = {"01c_downpour_a.png"}, weights = {1}, redRoom = "Reds/01c_downpour_redroom" },
+    --[[Downpour]] [31] = { doors = {"01c_downpour_a.png"}, weights = {1}, redRoom = "Reds/01c_downpour_redroom.png" },
     --[[Dross]] [45] = { doors = {"01d_dross_a.png", "01d_dross_b.png"}, weights = {1, 1}, redRoom = "Reds/01d_dross_redroom.png" },
 
     --[[Caves]] [4] = { doors = {"02_caves_a.png", "02_caves_b.png"}, weights = {1, 0.25}, redRoom = "Reds/02_caves_redroom.png" },
@@ -114,6 +114,9 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
 
     --Mega Satan
     if Game():GetLevel():GetCurrentRoomIndex() == GridRooms.ROOM_MEGA_SATAN_IDX or indexedDoor.TargetRoomIndex == GridRooms.ROOM_MEGA_SATAN_IDX then return end
+
+    --The Void
+    if Game():GetLevel():GetCurrentRoomIndex() == GridRooms.ROOM_THE_VOID_IDX or indexedDoor.TargetRoomIndex == GridRooms.ROOM_THE_VOID_IDX then return end
 
     --Polaroid Door
     if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (Game():GetLevel():GetCurrentRoomIndex() == 84 or indexedDoor.TargetRoomIndex == 84) and (stageEnum == 5 or stageEnum == 6) then return end
@@ -268,6 +271,9 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
         if currentType == RoomType.ROOM_BOSS or targetType == RoomType.ROOM_BOSS then
             doorType = 2
             doorIndex = 6
+
+            --Hush
+            if (Game():GetLevel():GetCurrentRoomIndex() == 59 or Game():GetLevel():GetCurrentRoomIndex() == 71 or indexedDoor.TargetRoomIndex == 71) and stageEnum == 9 then return end
         end
 
     end
@@ -366,12 +372,7 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
     --Set the defaults of missing values in the tables
     if type(doorTable) ~= "table" then return end
     if type(doorTable.doors) ~= "table" then doorTable.doors = {"normaldoor.png"} end
-    if type(doorTable.weights) ~= "table" then doorTable.weights = {} end
-    for x = 0, #doorTable.doors, 1 do
-        if type(doorTable.weights[x]) ~= "number" then
-            doorTable.weights[x] = 1
-        end
-    end
+    if type(doorTable.weights) ~= "table" then doorTable.weights = {1} end
     if type(doorTable.redRoom) ~= "string" then doorTable.redRoom = "Reds/normaldoor_redroom.png" end
     if type(doorTable.anm2) ~= "string" then doorTable.anm2 = "default.anm2" end
     if type(doorTable.allowFlip) ~= "boolean" then doorTable.allowFlip = true end
@@ -402,11 +403,12 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
 
     --Flipping doors randomly 50/50 and deciding what axis they're flipped on
     if settings.variants and settings.flipping and doorTable.allowFlip == true then
+
         --Set the seed based on the decoration seed and door slot so that doors will stay consistent when reentering a room
         math.randomseed(currentRoom:GetDecorationSeed() + indexedDoor.Slot)
         if math.random(0, 1) == 1 then
-            if (indexedDoor:GetSprite().Rotation / 90) % 2 == 0 then indexedDoor:GetSprite().FlipX = true end
-            if (indexedDoor:GetSprite().Rotation / 90) % 2 == 1 then indexedDoor:GetSprite().FlipY = true end
+            if indexedDoor.Direction == 0 or indexedDoor.Direction == 2 then indexedDoor:GetSprite().FlipY = true end
+            if indexedDoor.Direction == 1 or indexedDoor.Direction == 3 then indexedDoor:GetSprite().FlipX = true end
         end
     end
 
