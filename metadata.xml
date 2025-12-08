@@ -13,6 +13,7 @@ Because of some of the limitations and jankiness of Isaac, there are some doors 
 [*]Mega Satan Door
 [*]Polaroid Door to the ascent
 [*]The doors in the Mom fight
+[*]The doors in the Greed fight
 [/list]
 These can't be replaced because its either not possible or the doors completely break and cannot be entered when replaced.
 
@@ -34,7 +35,7 @@ You can also go over to my Github and download the mod from over there. I allow 
 [b][i]https://github.com/AaronRuinsLives/Door-Overhaul[/i][/b]
 
 </description>
-    <version>1.11</version>
+    <version>1.14</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Rooms"/>

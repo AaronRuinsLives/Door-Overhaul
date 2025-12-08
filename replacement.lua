@@ -3,14 +3,14 @@ local normalDoorFilenames = {
     --[[Default]] [0] = { doors = {"normaldoor.png"}, weights = {1}, redRoom = "Reds/normaldoor_redroom.png" },
 
     --[[Basement]] [1] = { doors = {"01_basement_a.png", "01_basement_b.png"}, weights = {1, 1}, redRoom = "Reds/01_basement_redroom.png" },
-    --[[Cellar]] [2] = { doors = {"01a_cellar_a.png", "01a_cellar_b.png"}, weights = {1, 0.5}, redRoom = "Reds/01a_cellar_redroom.png" },
+    --[[Cellar]] [2] = { doors = {"01a_cellar_a.png", "01a_cellar_b.png", "01a_cellar_c.png"}, weights = {1, 0.5, 0.5}, redRoom = "Reds/01a_cellar_redroom.png" },
     --[[Burning Basement]] [3] = { doors = {"01b_burning_a.png", "01b_burning_b.png", "01b_burning_c.png", "01b_burning_d.png"}, weights = {1, 1, 0.75, 0.75}, redRoom = "Reds/01b_burning_redroom.png" },
     --[[Downpour]] [31] = { doors = {"01c_downpour_a.png"}, weights = {1}, redRoom = "Reds/01c_downpour_redroom.png" },
     --[[Dross]] [45] = { doors = {"01d_dross_a.png", "01d_dross_b.png"}, weights = {1, 1}, redRoom = "Reds/01d_dross_redroom.png" },
 
-    --[[Caves]] [4] = { doors = {"02_caves_a.png", "02_caves_b.png"}, weights = {1, 0.25}, redRoom = "Reds/02_caves_redroom.png" },
+    --[[Caves]] [4] = { doors = {"02_caves_a.png", "02_caves_b.png", "02_caves_c1.png", "02_caves_c2.png"}, weights = {1, 0.5, 0.5, 0.5}, redRoom = "Reds/02_caves_redroom.png" },
     --[[Catacombs]] [5] = { doors = {"02a_catacombs_a.png"}, weights = {1}, redRoom = "Reds/02a_catacombs_redroom.png" }, 
-    --[[Flooded Caves]] [6] = { doors = {"02b_flooded_a.png"}, weights = {1}, redRoom = "Reds/02b_flooded_redroom.png" },
+    --[[Flooded Caves]] [6] = { doors = {"02b_flooded_a1.png", "02b_flooded_a2.png", "02b_flooded_b1.png", "02b_flooded_b2.png", "02b_flooded_c1.png", "02b_flooded_c2.png"}, weights = {1, 0.75, 1, 0.75, 1, 0.75}, redRoom = "Reds/02b_flooded_redroom.png" },
     --[[Mines]] [32] = { doors = {"02c_mines_a.png"}, weights = {1}, redRoom = "Reds/02c_mines_redroom.png" },
     --[[Mines Shaft]] [58] = { doors = {"02c_mines_a.png"}, weights = {1}, redRoom = "Reds/02c_mines_redroom.png" }, 
     --[[Ashpit]] [46] = { doors = {"02d_ashpit_a.png", "02d_ashpit_b.png"}, weights = {1, 1}, redRoom = "Reds/02d_ashpit_redroom.png" },
@@ -26,7 +26,7 @@ local normalDoorFilenames = {
     --[[Gehenna]] [47] = { doors = {"03d_gehenna_a.png"}, weights = {1}, redRoom = "Reds/03d_gehenna_redroom.png" },
    
     --[[Womb]] [10] = { doors = {"04_womb_a.png"}, weights = {1}, redRoom = "Reds/04_womb_redroom.png" },
-    --[[Utero]] [11] = { doors = {"04a_utero_a.png"}, weights = {1}, redRoom = "Reds/04a_utero_redroom.png" },
+    --[[Utero]] [11] = { doors = {"04a_utero_a.png", "04a_utero_b.png"}, weights = {1, 0.5}, redRoom = "Reds/04a_utero_redroom.png" },
     --[[Scarred Womb]] [12] = { doors = {"04b_scarred_a.png"}, weights = {1}, redRoom = "Reds/04b_scarred_redroom.png" },
     --[[Corpse #1]] [34] = { doors = {"04c_corpseA_a.png"}, weights = {1}, redRoom = "Reds/04c_corpseA_redroom.png" },
     --[[Corpse #2]] [43] = { doors = {"04c_corpseB_a.png"}, weights = {1}, redRoom = "Reds/04c_corpseB_redroom.png" },
@@ -54,10 +54,13 @@ local specialDoorFilenames = {
     --[[Greed Treasure]] [5] = { doors = {"00_treasure_greed.png"}, redRoom = "Reds/00_treasure_greed_redroom.png", allowFlip = false },
     --[[Boss]] [6] = { doors = {"00_boss.png"}, redRoom = "Reds/00_boss_redroom.png", anm2 = "boss.anm2", allowFlip = false },
     --[[Arcade]] [7] = { doors = {"00_arcade.png"}, redRoom = "Reds/00_arcade_redroom.png", anm2 = "arcade.anm2", allowFlip = false },
+    --[[Tainted Arcade]] [22] = { doors = {"00_arcade_tainted.png"}, redRoom = "Reds/00_arcade_tainted_redroom.png", anm2 = "arcade.anm2", allowFlip = false },
     --[[Curse]] [8] = { doors = {"00_curse.png"}, redRoom = "Reds/00_curse_redroom.png", allowFlip = false },
     --[[Curse (No Spikes)]] [9] = { doors = {"00_curse_nospikes.png"}, redRoom = "Reds/00_curse_nospikes_redroom.png", allowFlip = false },
+    --[[Tainted Curse]] [23] = { doors = {"00_curse_tainted.png"}, redRoom = "Reds/00_curse_tainted_redroom.png", allowFlip = false },
+    --[[Tainted Curse (No Spikes)]] [24] = { doors = {"00_curse_tainted_nospikes.png"}, redRoom = "Reds/00_curse__tainted_nospikes_redroom.png", allowFlip = false },
     --[[Challenge]] [10] = { doors = {"00_challenge.png"}, redRoom = "Reds/00_challenge_redroom.png", allowFlip = false },
-    --[[Boss Challenge]] [11] = { doors = {"00_challenge_boss.png"}, redRoom = "Reds/00_boss_challenge_redroom.png", allowFlip = false },
+    --[[Boss Challenge]] [11] = { doors = {"00_challenge_boss.png"}, redRoom = "Reds/00_challenge_boss_redroom.png", allowFlip = false },
     --[[Library]] [12] = { doors = {"00_library.png"}, redRoom = "Reds/00_library_redroom.png", allowFlip = false },
     --[[Sacrifice]] [13] = { doors = {"00_sacrifice.png"}, redRoom = "Reds/00_sacrifice_redroom.png", allowFlip = false },
     --[[Devil]] [14] = { doors = {"00_devil.png"}, redRoom = "Reds/00_devil_redroom.png", allowFlip = false },
@@ -87,7 +90,7 @@ local function hasFlag(roomFlags, flag)
 end
 
 --Determines what the current door should be replaced with
-local function getDoorInfo(indexedDoor, currentRoom, settings)
+local function getDoorInfo(settings, indexedDoor, currentRoom)
 
     local currentType = indexedDoor.CurrentRoomType
     local targetType = indexedDoor.TargetRoomType
@@ -180,6 +183,14 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
         if currentType == RoomType.ROOM_ARCADE or targetType == RoomType.ROOM_ARCADE then
             doorType = 2
             doorIndex = 7
+
+            --Cain's Birthright
+            for x = 0, Game():GetNumPlayers() - 1, 1 do
+                if Game():GetPlayer(x):GetPlayerType() == PlayerType.PLAYER_CAIN and Game():GetPlayer(x):HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
+                    doorIndex = 22
+                    break
+                end
+            end
         end
 
         --Sacrifice
@@ -199,7 +210,7 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
             doorType = 2
             doorIndex = 1
 
-            --Tainted Shop
+            --Tainted Keepers Shop
             for x = 0, Game():GetNumPlayers() - 1, 1 do
                 if Game():GetPlayer(x):GetPlayerType() == PlayerType.PLAYER_KEEPER_B then 
                     doorIndex = 2
@@ -258,10 +269,27 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
             doorType = 2
             doorIndex = 8
 
-            --Curse (No Spikes)
+            --Flat File
             for x = 0, Game():GetNumPlayers()-1, 1 do
                 if Game():GetPlayer(x):HasTrinket(TrinketType.TRINKET_FLAT_FILE) then
                     doorIndex = 9
+                    break
+                end
+            end
+            
+            --Voodoo Head
+            for x = 0, Game():GetNumPlayers() - 1, 1 do
+                if Game():GetPlayer(x):HasCollectible(CollectibleType.COLLECTIBLE_VOODOO_HEAD) then
+                    doorIndex = 23
+
+                    --Flat File
+                    for y = 0, Game():GetNumPlayers()-1, 1 do
+                        if Game():GetPlayer(y):HasTrinket(TrinketType.TRINKET_FLAT_FILE) then
+                            doorIndex = 24
+                            break
+                        end
+                    end
+
                     break
                 end
             end
@@ -368,7 +396,7 @@ local function getDoorInfo(indexedDoor, currentRoom, settings)
 
         doorTable = storyDoorFilenames[doorIndex]
     end
-
+    
     --Set the defaults of missing values in the tables
     if type(doorTable) ~= "table" then return end
     if type(doorTable.doors) ~= "table" then doorTable.doors = {"normaldoor.png"} end
@@ -423,6 +451,9 @@ end
 
 --The actual code that goes through, checks, and replaces each door
 return function(settings)
+    --Don't change doors on modded StageAPI floors. Breaks on those floors
+    if StageAPI ~= nil and StageAPI:InNewStage() then return end
+
     local currentRoom = Game():GetRoom()
 
     --Loop through all door slots and check for a door. If so, get the new file and replace
@@ -434,7 +465,7 @@ return function(settings)
         local currentAnim = doorSprite:GetAnimation()
         local currentFrame = doorSprite:GetFrame()
 
-        local doorInfo = getDoorInfo(indexedDoor, currentRoom, settings);
+        local doorInfo = getDoorInfo(settings, indexedDoor, currentRoom);
         if doorInfo == nil then goto loopSkip end
         if doorInfo.file == nil then goto loopSkip end
         if doorInfo.anm2 == nil then goto loopSkip end
