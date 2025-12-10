@@ -58,7 +58,7 @@ local specialDoorFilenames = {
     --[[Curse]] [8] = { doors = {"00_curse.png"}, redRoom = "Reds/00_curse_redroom.png", allowFlip = false },
     --[[Curse (No Spikes)]] [9] = { doors = {"00_curse_nospikes.png"}, redRoom = "Reds/00_curse_nospikes_redroom.png", allowFlip = false },
     --[[Tainted Curse]] [23] = { doors = {"00_curse_tainted.png"}, redRoom = "Reds/00_curse_tainted_redroom.png", allowFlip = false },
-    --[[Tainted Curse (No Spikes)]] [24] = { doors = {"00_curse_tainted_nospikes.png"}, redRoom = "Reds/00_curse__tainted_nospikes_redroom.png", allowFlip = false },
+    --[[Tainted Curse (No Spikes)]] [24] = { doors = {"00_curse_tainted_nospikes.png"}, redRoom = "Reds/00_curse_tainted_nospikes_redroom.png", allowFlip = false },
     --[[Challenge]] [10] = { doors = {"00_challenge.png"}, redRoom = "Reds/00_challenge_redroom.png", allowFlip = false },
     --[[Boss Challenge]] [11] = { doors = {"00_challenge_boss.png"}, redRoom = "Reds/00_challenge_boss_redroom.png", allowFlip = false },
     --[[Library]] [12] = { doors = {"00_library.png"}, redRoom = "Reds/00_library_redroom.png", allowFlip = false },
@@ -451,7 +451,7 @@ end
 
 --The actual code that goes through, checks, and replaces each door
 return function(settings)
-    --Don't change doors on modded StageAPI floors. Breaks on those floors
+    --Don't change doors on modded StageAPI floors to prevent flickering on those floors (Temporary fix)
     if StageAPI ~= nil and StageAPI:InNewStage() then return end
 
     local currentRoom = Game():GetRoom()
