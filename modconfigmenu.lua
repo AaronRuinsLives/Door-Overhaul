@@ -237,6 +237,9 @@ return function(settings)
         Info = { "Toggle if doors are randomly flipped" }
     })
 
+    ModConfigMenu.AddSpace("Door Overhaul", "General")
+    ModConfigMenu.AddText("Door Overhaul", "General", "Made by AaronRuinsLives")
+
     --Normal
     addNormalDoorSetting("Default: ", {0})
     ModConfigMenu.AddSpace("Door Overhaul", "Normal")
@@ -289,6 +292,7 @@ return function(settings)
     addSpecialDoorSetting("Arcade: ", {7})
     addSpecialDoorSetting("Tainted Arcade: ", {22})
     addSpecialDoorSetting("Curse: ", {8, 9})
+    addSpecialDoorSetting("Tainted Curse: ", {23, 24})
     addSpecialDoorSetting("Challenge: ", {10})
     addSpecialDoorSetting("Boss Challenge: ", {11})
     addSpecialDoorSetting("Library: ", {12})
@@ -300,7 +304,6 @@ return function(settings)
     addSpecialDoorSetting("Dice: ", {19})
     addSpecialDoorSetting("Black Market: ", {20})
     addSpecialDoorSetting("Planetarium: ", {21})
-    addSpecialDoorSetting("Blue Key: ", {22}) 
 
     --Story
     addStoryDoorSetting("Greed Exit: ", {1})
