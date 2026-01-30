@@ -9,5 +9,5 @@ You can also contact me if you want express permission to reuse the code, help u
 **Instagram: aaronruinslives**  
 **Steam: AaronRuinsLives**  
 <br>
-As long as the rules regarding credits are followed, you are allowed to reuse, alter, and repost any part of the mod you wish. If you want you could make your own door resprite mod by altering the sprites and animation a little, thats totally fine. The code should be pretty well documented in its comments. Thats should be all!
+As long as the rules regarding credits are followed, you are allowed to reuse, alter, and repost any part of the mod you wish. If you want you could make your own door resprite mod by altering the sprites and animation a little, thats totally fine. The code should be pretty well documented in its comments. That should be all!
 

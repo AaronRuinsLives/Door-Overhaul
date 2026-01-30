@@ -427,6 +427,9 @@ local function getDoorInfo(settings, indexedDoor, currentRoom)
                 break
             end
         end
+
+        --Reset the seed to avoid messing with other random calls
+        math.randomseed(os.time())
     end
 
     --Flipping doors randomly 50/50 and deciding what axis they're flipped on
@@ -438,6 +441,9 @@ local function getDoorInfo(settings, indexedDoor, currentRoom)
             if indexedDoor.Direction == 0 or indexedDoor.Direction == 2 then indexedDoor:GetSprite().FlipY = true end
             if indexedDoor.Direction == 1 or indexedDoor.Direction == 3 then indexedDoor:GetSprite().FlipX = true end
         end
+
+        --Reset the seed to avoid messing with other random calls
+        math.randomseed(os.time())
     end
 
     --For doors that LEAD INTO a red room, as doors inside of a red room already inherit the wall color
