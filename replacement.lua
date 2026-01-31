@@ -429,7 +429,7 @@ local function getDoorInfo(settings, indexedDoor, currentRoom)
         end
 
         --Reset the seed to avoid messing with other random calls
-        math.randomseed(os.time())
+        math.randomseed(Isaac.GetTime())
     end
 
     --Flipping doors randomly 50/50 and deciding what axis they're flipped on
@@ -443,7 +443,7 @@ local function getDoorInfo(settings, indexedDoor, currentRoom)
         end
 
         --Reset the seed to avoid messing with other random calls
-        math.randomseed(os.time())
+        math.randomseed(Isaac.GetTime())
     end
 
     --For doors that LEAD INTO a red room, as doors inside of a red room already inherit the wall color
