@@ -146,7 +146,7 @@ DoorOverhaul:AddCallback(ModCallbacks.MC_POST_UPDATE, function() replaceDoors(se
 DoorOverhaul:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function() replaceDoors(settings) end)
 
 --Check for ModConfigMenu and set it up
-if ModConfigMenu ~= nil then end
-
-local setupConfig = require("modconfigmenu")
-DoorOverhaul:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function() setupConfig(settings) end)
+if ModConfigMenu ~= nil then
+    local setupConfig = require("modconfigmenu")
+    DoorOverhaul:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, function() setupConfig(settings) end)
+end

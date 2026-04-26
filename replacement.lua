@@ -125,273 +125,270 @@ local function getDoorInfo(settings, indexedDoor, currentRoom)
     if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (Game():GetLevel():GetCurrentRoomIndex() == 84 or indexedDoor.TargetRoomIndex == 84) and (stageEnum == 5 or stageEnum == 6) then return end
 
     --Normal Doors
-    if settings.normalDoors then
 
-        --Normal
-        if currentType == RoomType.ROOM_DEFAULT or targetType == RoomType.ROOM_DEFAULT then
-            doorIndex = backdropEnum
-            doorType = 1
-        end
-
-        --Miniboss
-        if currentType == RoomType.ROOM_MINIBOSS or targetType == RoomType.ROOM_MINIBOSS then
-            doorIndex = backdropEnum
-            doorType = 1
-        end
-
-        --Error
-        if currentType == RoomType.ROOM_ERROR or targetType == RoomType.ROOM_ERROR then
-            doorIndex = backdropEnum
-            doorType = 1
-        end
+    --Normal
+    if currentType == RoomType.ROOM_DEFAULT or targetType == RoomType.ROOM_DEFAULT then
+        doorIndex = backdropEnum
+        doorType = 1
     end
-    
+
+    --Miniboss
+    if currentType == RoomType.ROOM_MINIBOSS or targetType == RoomType.ROOM_MINIBOSS then
+        doorIndex = backdropEnum
+        doorType = 1
+    end
+
+    --Error
+    if currentType == RoomType.ROOM_ERROR or targetType == RoomType.ROOM_ERROR then
+        doorIndex = backdropEnum
+        doorType = 1
+    end
+
     --Special Doors
-    if settings.specialDoors then
 
-        --Black Market
-        if currentType == RoomType.ROOM_BLACK_MARKET or targetType == RoomType.ROOM_BLACK_MARKET then
-            doorType = 2
-            doorIndex = 20
-        end
-
-        --Bedroom
-        if currentType == RoomType.ROOM_ISAACS or targetType == RoomType.ROOM_ISAACS then
-            doorType = 2
-            doorIndex = 16
-        end
-
-        --Bedroom (Barren)
-        if currentType == RoomType.ROOM_BARREN or targetType == RoomType.ROOM_BARREN then
-            doorType = 2
-            doorIndex = 17
-        end
-
-        --Chest
-        if currentType == RoomType.ROOM_CHEST or targetType == RoomType.ROOM_CHEST then
-            doorType = 2
-            doorIndex = 18
-        end
-
-        --Library
-        if currentType == RoomType.ROOM_LIBRARY or targetType == RoomType.ROOM_LIBRARY then
-            doorType = 2
-            doorIndex = 12
-        end
-
-        --Arcade
-        if currentType == RoomType.ROOM_ARCADE or targetType == RoomType.ROOM_ARCADE then
-            doorType = 2
-            doorIndex = 7
-
-            --Cain's Birthright
-            for x = 0, Game():GetNumPlayers() - 1, 1 do
-                if Game():GetPlayer(x):GetPlayerType() == PlayerType.PLAYER_CAIN and Game():GetPlayer(x):HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
-                    doorIndex = 22
-                    break
-                end
-            end
-        end
-
-        --Sacrifice
-        if currentType == RoomType.ROOM_SACRIFICE or targetType == RoomType.ROOM_SACRIFICE then
-            doorType = 2
-            doorIndex = 13
-        end
-
-        --Dice 
-        if currentType == RoomType.ROOM_DICE or targetType == RoomType.ROOM_DICE then
-            doorType = 2
-            doorIndex = 19
-        end
-
-        --Shop
-        if currentType == RoomType.ROOM_SHOP or targetType == RoomType.ROOM_SHOP then
-            doorType = 2
-            doorIndex = 1
-
-            --Tainted Keepers Shop
-            for x = 0, Game():GetNumPlayers() - 1, 1 do
-                if Game():GetPlayer(x):GetPlayerType() == PlayerType.PLAYER_KEEPER_B then 
-                    doorIndex = 2
-                    break
-                end
-            end
-        end
-
-        --Treasure
-        if currentType == RoomType.ROOM_TREASURE or targetType == RoomType.ROOM_TREASURE then
-            doorType = 2
-            doorIndex = 3
-
-            --Devil Treasure
-            if hasFlag(currentRoomFlags, RoomDescriptor.FLAG_DEVIL_TREASURE) or hasFlag(targetRoomFlags, RoomDescriptor.FLAG_DEVIL_TREASURE) then
-                doorIndex = 4
-            end
-
-            --Greed Treasure
-            if Game():IsGreedMode() and (indexedDoor.Slot == 6 or (indexedDoor.Slot == 0 and Game():GetLevel():GetCurrentRoomIndex() == 98)) then
-                doorIndex = 5
-            end
-        end
-
-        --Planetarium
-        if currentType == RoomType.ROOM_PLANETARIUM or targetType == RoomType.ROOM_PLANETARIUM then
-            doorType = 2
-            doorIndex = 21
-        end
-
-        --Angel
-        if currentType == RoomType.ROOM_ANGEL or targetType == RoomType.ROOM_ANGEL then
-            doorType = 2
-            doorIndex = 15
-        end
-
-        --Devil
-        if currentType == RoomType.ROOM_DEVIL or targetType == RoomType.ROOM_DEVIL then
-            doorType = 2
-            doorIndex = 14
-        end
-
-        --Challenge
-        if currentType == RoomType.ROOM_CHALLENGE or targetType == RoomType.ROOM_CHALLENGE then
-            doorType = 2
-            doorIndex = 10
-
-            --Boss Challenge
-            if stageEnum == 2 or stageEnum == 4 or stageEnum == 6 or stageEnum == 8 then
-                doorIndex = 11
-            end
-        end
-
-        --Curse
-        if currentType == RoomType.ROOM_CURSE or targetType == RoomType.ROOM_CURSE then
-            doorType = 2
-            doorIndex = 8
-
-            --Flat File
-            for x = 0, Game():GetNumPlayers()-1, 1 do
-                if Game():GetPlayer(x):HasTrinket(TrinketType.TRINKET_FLAT_FILE) then
-                    doorIndex = 9
-                    break
-                end
-            end
-            
-            --Voodoo Head
-            for x = 0, Game():GetNumPlayers() - 1, 1 do
-                if Game():GetPlayer(x):HasCollectible(CollectibleType.COLLECTIBLE_VOODOO_HEAD) then
-                    doorIndex = 23
-
-                    --Flat File
-                    for y = 0, Game():GetNumPlayers()-1, 1 do
-                        if Game():GetPlayer(y):HasTrinket(TrinketType.TRINKET_FLAT_FILE) then
-                            doorIndex = 24
-                            break
-                        end
-                    end
-
-                    break
-                end
-            end
-        end
-
-        --Boss
-        if currentType == RoomType.ROOM_BOSS or targetType == RoomType.ROOM_BOSS then
-            doorType = 2
-            doorIndex = 6
-
-            --Hush
-            if (Game():GetLevel():GetCurrentRoomIndex() == 59 or Game():GetLevel():GetCurrentRoomIndex() == 71 or indexedDoor.TargetRoomIndex == 71) and stageEnum == 9 then return end
-        end
-
+    --Black Market
+    if currentType == RoomType.ROOM_BLACK_MARKET or targetType == RoomType.ROOM_BLACK_MARKET then
+        doorType = 2
+        doorIndex = 20
     end
 
-    --Story Doors
-    if settings.storyDoors then
+    --Bedroom
+    if currentType == RoomType.ROOM_ISAACS or targetType == RoomType.ROOM_ISAACS then
+        doorType = 2
+        doorIndex = 16
+    end
 
-        --Greed Exit
-        if currentType == RoomType.ROOM_GREED_EXIT or targetType == RoomType.ROOM_GREED_EXIT then
-            doorType = 3
-            doorIndex = 1
-        end
+    --Bedroom (Barren)
+    if currentType == RoomType.ROOM_BARREN or targetType == RoomType.ROOM_BARREN then
+        doorType = 2
+        doorIndex = 17
+    end
 
-        --Downpour / Alt Mines Entrances
-        if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 1 or stageEnum == 2) then
-            doorType = 3
-            doorIndex = 2
+    --Chest
+    if currentType == RoomType.ROOM_CHEST or targetType == RoomType.ROOM_CHEST then
+        doorType = 2
+        doorIndex = 18
+    end
 
-            local stageType = Game():GetLevel():GetStageType()
+    --Library
+    if currentType == RoomType.ROOM_LIBRARY or targetType == RoomType.ROOM_LIBRARY then
+        doorType = 2
+        doorIndex = 12
+    end
 
-            --Lead to Mines if already on an alt floor
-            if stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B then
-                doorIndex = 3
+    --Arcade
+    if currentType == RoomType.ROOM_ARCADE or targetType == RoomType.ROOM_ARCADE then
+        doorType = 2
+        doorIndex = 7
+
+        --Cain's Birthright
+        for x = 0, Game():GetNumPlayers() - 1, 1 do
+            if Game():GetPlayer(x):GetPlayerType() == PlayerType.PLAYER_CAIN and Game():GetPlayer(x):HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT) then
+                doorIndex = 22
+                break
             end
         end
+    end
 
-        --Mines / Alt Mausoleum Entrances
-        if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 3 or stageEnum == 4) then
-            doorType = 3
-            doorIndex = 3
+    --Sacrifice
+    if currentType == RoomType.ROOM_SACRIFICE or targetType == RoomType.ROOM_SACRIFICE then
+        doorType = 2
+        doorIndex = 13
+    end
 
-            local stageType = Game():GetLevel():GetStageType()
-            
-            --Lead to Mausoleum if already on an alt floor
-            if stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B then
-                doorIndex = 4
+    --Dice 
+    if currentType == RoomType.ROOM_DICE or targetType == RoomType.ROOM_DICE then
+        doorType = 2
+        doorIndex = 19
+    end
+
+    --Shop
+    if currentType == RoomType.ROOM_SHOP or targetType == RoomType.ROOM_SHOP then
+        doorType = 2
+        doorIndex = 1
+
+        --Tainted Keepers Shop
+        for x = 0, Game():GetNumPlayers() - 1, 1 do
+            if Game():GetPlayer(x):GetPlayerType() == PlayerType.PLAYER_KEEPER_B then 
+                doorIndex = 2
+                break
             end
         end
+    end
 
-        --Mausoleum Entrance
-        if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 5 or stageEnum == 6) then
-            doorType = 3
+    --Treasure
+    if currentType == RoomType.ROOM_TREASURE or targetType == RoomType.ROOM_TREASURE then
+        doorType = 2
+        doorIndex = 3
+
+        --Devil Treasure
+        if hasFlag(currentRoomFlags, RoomDescriptor.FLAG_DEVIL_TREASURE) or hasFlag(targetRoomFlags, RoomDescriptor.FLAG_DEVIL_TREASURE) then
             doorIndex = 4
         end
 
-        --Corpse Entrance (Outside)
-        if targetType == RoomType.ROOM_BOSS and indexedDoor.TargetRoomIndex == GridRooms.ROOM_SECRET_EXIT_IDX and (stageEnum == 5 or stageEnum == 6) then
-            doorType = 3
+        --Greed Treasure
+        if Game():IsGreedMode() and (indexedDoor.Slot == 6 or (indexedDoor.Slot == 0 and Game():GetLevel():GetCurrentRoomIndex() == 98)) then
             doorIndex = 5
-        end
-
-        --Corpse Entrance (Inside)
-        if currentType == RoomType.ROOM_BOSS and backdropEnum == BackdropType.WOMB and (stageEnum == 5 or stageEnum == 6) then
-            doorType = 3
-            doorIndex = 5
-        end
-
-        --Mirror
-        if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MIRROR_IDX then
-            doorType = 3
-            doorIndex = 6
-        end
-
-        --Mineshaft Mines
-        if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MINESHAFT_IDX and (backdropEnum == BackdropType.MINES or backdropEnum == BackdropType.MINES_SHAFT) then
-            doorType = 3
-            doorIndex = 7
-        end
-
-        --Mineshaft Ashpit
-        if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MINESHAFT_IDX and (backdropEnum == BackdropType.ASHPIT or backdropEnum == BackdropType.ASHPIT_SHAFT) then
-            doorType = 3
-            doorIndex = 8
         end
     end
+
+    --Planetarium
+    if currentType == RoomType.ROOM_PLANETARIUM or targetType == RoomType.ROOM_PLANETARIUM then
+        doorType = 2
+        doorIndex = 21
+    end
+
+    --Angel
+    if currentType == RoomType.ROOM_ANGEL or targetType == RoomType.ROOM_ANGEL then
+        doorType = 2
+        doorIndex = 15
+    end
+
+    --Devil
+    if currentType == RoomType.ROOM_DEVIL or targetType == RoomType.ROOM_DEVIL then
+        doorType = 2
+        doorIndex = 14
+    end
+
+    --Challenge
+    if currentType == RoomType.ROOM_CHALLENGE or targetType == RoomType.ROOM_CHALLENGE then
+        doorType = 2
+        doorIndex = 10
+
+        --Boss Challenge
+        if stageEnum == 2 or stageEnum == 4 or stageEnum == 6 or stageEnum == 8 then
+            doorIndex = 11
+        end
+    end
+
+    --Curse
+    if currentType == RoomType.ROOM_CURSE or targetType == RoomType.ROOM_CURSE then
+        doorType = 2
+        doorIndex = 8
+
+        --Flat File
+        for x = 0, Game():GetNumPlayers()-1, 1 do
+            if Game():GetPlayer(x):HasTrinket(TrinketType.TRINKET_FLAT_FILE) then
+                doorIndex = 9
+                break
+            end
+        end
+        
+        --Voodoo Head
+        for x = 0, Game():GetNumPlayers() - 1, 1 do
+            if Game():GetPlayer(x):HasCollectible(CollectibleType.COLLECTIBLE_VOODOO_HEAD) then
+                doorIndex = 23
+
+                --Flat File
+                for y = 0, Game():GetNumPlayers()-1, 1 do
+                    if Game():GetPlayer(y):HasTrinket(TrinketType.TRINKET_FLAT_FILE) then
+                        doorIndex = 24
+                        break
+                    end
+                end
+
+                break
+            end
+        end
+    end
+
+    --Boss
+    if currentType == RoomType.ROOM_BOSS or targetType == RoomType.ROOM_BOSS then
+        doorType = 2
+        doorIndex = 6
+
+        --Hush
+        if (Game():GetLevel():GetCurrentRoomIndex() == 59 or Game():GetLevel():GetCurrentRoomIndex() == 71 or indexedDoor.TargetRoomIndex == 71) and stageEnum == 9 then return end
+    end
+
+    --Story Doors
+
+    --Greed Exit
+    if currentType == RoomType.ROOM_GREED_EXIT or targetType == RoomType.ROOM_GREED_EXIT then
+        doorType = 3
+        doorIndex = 1
+    end
+
+    --Downpour / Alt Mines Entrances
+    if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 1 or stageEnum == 2) then
+        doorType = 3
+        doorIndex = 2
+
+        local stageType = Game():GetLevel():GetStageType()
+
+        --Lead to Mines if already on an alt floor
+        if stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B then
+            doorIndex = 3
+        end
+    end
+
+    --Mines / Alt Mausoleum Entrances
+    if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 3 or stageEnum == 4) then
+        doorType = 3
+        doorIndex = 3
+
+        local stageType = Game():GetLevel():GetStageType()
+        
+        --Lead to Mausoleum if already on an alt floor
+        if stageType == StageType.STAGETYPE_REPENTANCE or stageType == StageType.STAGETYPE_REPENTANCE_B then
+            doorIndex = 4
+        end
+    end
+
+    --Mausoleum Entrance
+    if (currentType == RoomType.ROOM_SECRET_EXIT or targetType == RoomType.ROOM_SECRET_EXIT) and (stageEnum == 5 or stageEnum == 6) then
+        doorType = 3
+        doorIndex = 4
+    end
+
+    --Corpse Entrance (Outside)
+    if targetType == RoomType.ROOM_BOSS and indexedDoor.TargetRoomIndex == GridRooms.ROOM_SECRET_EXIT_IDX and (stageEnum == 5 or stageEnum == 6) then
+        doorType = 3
+        doorIndex = 5
+    end
+
+    --Corpse Entrance (Inside)
+    if currentType == RoomType.ROOM_BOSS and backdropEnum == BackdropType.WOMB and (stageEnum == 5 or stageEnum == 6) then
+        doorType = 3
+        doorIndex = 5
+    end
+
+    --Mirror
+    if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MIRROR_IDX then
+        doorType = 3
+        doorIndex = 6
+    end
+
+        --Mineshaft Mines
+    if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MINESHAFT_IDX and (backdropEnum == BackdropType.MINES or backdropEnum == BackdropType.MINES_SHAFT) then
+        doorType = 3
+        doorIndex = 7
+    end
+
+    --Mineshaft Ashpit
+    if indexedDoor.TargetRoomIndex == GridRooms.ROOM_MINESHAFT_IDX and (backdropEnum == BackdropType.ASHPIT or backdropEnum == BackdropType.ASHPIT_SHAFT) then
+        doorType = 3
+        doorIndex = 8
+    end
+    
 
     --Get the table with the doors info. Return blank if none was ever found or its toggled off in the settings
     if doorType == 0 then return
 
     elseif doorType == 1 then
+        if settings.normalDoors == false then return end
         if settings.normalDoorTable[doorIndex] == 3 then return end
 
         doorTable = normalDoorFilenames[doorIndex]
 
     elseif doorType == 2 then
+        if settings.specialDoors == false then return end
         if settings.specialDoorTable[doorIndex] == false then return end
 
         doorTable = specialDoorFilenames[doorIndex]
 
     elseif doorType == 3 then
+        if settings.storyDoors == false then return end
         if settings.storyDoorTable[doorIndex] == false then return end
 
         doorTable = storyDoorFilenames[doorIndex]
@@ -415,10 +412,12 @@ local function getDoorInfo(settings, indexedDoor, currentRoom)
         for x = 1, #doorTable.weights, 1 do
             weightMax = weightMax + doorTable.weights[x]
         end
-        
+    
         --Set the seed based on the decoration seed and door slot so that doors will stay consistent when reentering a room
-        math.randomseed(currentRoom:GetDecorationSeed() + indexedDoor.Slot)
-        local doorValue = math.random() * weightMax
+        local rng = RNG();
+        rng:SetSeed(currentRoom:GetDecorationSeed() * (indexedDoor.Slot + 1), 35)
+
+        local doorValue = rng:RandomFloat(1) * weightMax
 
         for x = 1, #doorTable.weights, 1 do
             doorValue = doorValue - doorTable.weights[x]
@@ -427,23 +426,20 @@ local function getDoorInfo(settings, indexedDoor, currentRoom)
                 break
             end
         end
-
-        --Reset the seed to avoid messing with other random calls
-        math.randomseed(Isaac.GetTime())
     end
 
     --Flipping doors randomly 50/50 and deciding what axis they're flipped on
     if settings.variants and settings.flipping and doorTable.allowFlip == true then
 
         --Set the seed based on the decoration seed and door slot so that doors will stay consistent when reentering a room
-        math.randomseed(currentRoom:GetDecorationSeed() + indexedDoor.Slot)
-        if math.random(0, 1) == 1 then
+        local rng = RNG();
+        rng:SetSeed(currentRoom:GetDecorationSeed() * (indexedDoor.Slot + 1), 35)
+
+        if rng:RandomInt(2) == 1 then
+            print("Flipped")
             if indexedDoor.Direction == 0 or indexedDoor.Direction == 2 then indexedDoor:GetSprite().FlipY = true end
             if indexedDoor.Direction == 1 or indexedDoor.Direction == 3 then indexedDoor:GetSprite().FlipX = true end
         end
-
-        --Reset the seed to avoid messing with other random calls
-        math.randomseed(Isaac.GetTime())
     end
 
     --For doors that LEAD INTO a red room, as doors inside of a red room already inherit the wall color
@@ -456,7 +452,7 @@ end
 
 
 --The actual code that goes through, checks, and replaces each door
-return function(settings)
+return function(settings)   
     --Don't change doors on modded StageAPI floors to prevent flickering on those floors (Temporary fix)
     if StageAPI ~= nil and StageAPI:InNewStage() then return end
 
