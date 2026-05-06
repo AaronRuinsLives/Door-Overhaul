@@ -436,7 +436,6 @@ local function getDoorInfo(settings, indexedDoor, currentRoom)
         rng:SetSeed(currentRoom:GetDecorationSeed() * (indexedDoor.Slot + 1), 35)
 
         if rng:RandomInt(2) == 1 then
-            print("Flipped")
             if indexedDoor.Direction == 0 or indexedDoor.Direction == 2 then indexedDoor:GetSprite().FlipY = true end
             if indexedDoor.Direction == 1 or indexedDoor.Direction == 3 then indexedDoor:GetSprite().FlipX = true end
         end
